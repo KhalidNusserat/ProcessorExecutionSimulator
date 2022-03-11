@@ -7,15 +7,22 @@ public class StateHistory<State> implements Iterable<Interval<State>> {
 
 
     public void add(State state, int time) {
+        if (state == null)
+            throw new IllegalArgumentException();
         if (stateHistory.isEmpty()) {
             stateHistory.add(new Interval<>(state, time, time));
         }
-        else if (stateHistory.get(stateHistory.size() - 1).getValue() == state) {
+        else if (stateHistory.get(stateHistory.size() - 1).getValue().equals(state)) {
             stateHistory.get(stateHistory.size() - 1).incrementEnd();
         }
         else {
             stateHistory.add(new Interval<>(state, time, time));
         }
+    }
+
+    @Override
+    public String toString() {
+        return stateHistory.toString();
     }
 
     class StateHistoryIterator implements Iterator<Interval<State>> {
