@@ -1,4 +1,4 @@
-public class Task implements Stateful<TaskState> {
+public class Task implements Stateful<TaskState>, Capturable {
 
     private final TaskInfo info;
 
@@ -46,11 +46,15 @@ public class Task implements Stateful<TaskState> {
         if (isDone())
             throw new IllegalStateException("Cannot execute a finished task."); // TODO: find a better error to throw
         remainingTime--;
-        logger.capture();
     }
 
     @Override
     public TaskState getState() {
         return new TaskState(this);
+    }
+
+    @Override
+    public void capture() {
+        logger.capture();
     }
 }

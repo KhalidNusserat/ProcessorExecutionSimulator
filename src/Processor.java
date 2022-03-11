@@ -1,4 +1,4 @@
-public class Processor implements Stateful<ProcessorState> {
+public class Processor implements Stateful<ProcessorState>, Capturable {
 
     private final String ID;
 
@@ -36,11 +36,15 @@ public class Processor implements Stateful<ProcessorState> {
 
     public void executeOneCycle() {
         runningTask.executeOneCycle();
-        logger.capture();
     }
 
     @Override
     public ProcessorState getState() {
         return new ProcessorState(this);
+    }
+
+    @Override
+    public void capture() {
+        logger.capture();
     }
 }
