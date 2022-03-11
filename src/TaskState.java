@@ -37,8 +37,8 @@ public class TaskState {
     @Override
     public String toString() {
         return "TaskState {" +
-                "\n\tprocessor=" + processor +
-                ",\n\tremainingTime=" + remainingTime +
-                "\n}";
+                " processor=" + processor +
+                ", remainingTime=" + remainingTime +
+                "}";
     }
 }
