@@ -31,4 +31,14 @@ public class TaskInfo {
     public int getRequiredTime() {
         return requiredTime;
     }
+
+    @Override
+    public String toString() {
+        return "TaskInfo{" +
+                "ID='" + ID + '\'' +
+                ", priority=" + priority +
+                ", creationTime=" + creationTime +
+                ", requiredTime=" + requiredTime +
+                '}';
+    }
 }

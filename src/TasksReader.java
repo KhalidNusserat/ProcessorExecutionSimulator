@@ -1,0 +1,48 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class TasksReader {
+
+    private static final String[] prefix = {
+            "-id",
+            "-priority",
+            "-creationTime",
+            "-requiredTime"
+    };
+
+
+    public static ArrayList<TaskInfo> readTasksFromFile(String path) {
+        ArrayList<TaskInfo> tasks = new ArrayList<>();
+        try {
+            Scanner scanner = new Scanner(new File(path));
+            while (scanner.hasNext()) {
+                String[] data = new String[4];
+                for (int i = 0; i < 4; i++) {
+                    if (scanner.next().equalsIgnoreCase(prefix[i]))
+                        data[i] = scanner.next();
+                    else
+                        throw new Exception("Expected " + prefix[i]);
+                }
+                tasks.add(new TaskInfo(
+                        data[0],
+                        data[1].equalsIgnoreCase("high")
+                            ? TaskPriority.HIGH
+                                : TaskPriority.LOW,
+                        Integer.parseInt(data[2]),
+                        Integer.parseInt(data[3])
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tasks;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<TaskInfo> tasks = readTasksFromFile("./tasks.txt");
+        for (TaskInfo taskInfo : tasks)
+            System.out.println(taskInfo);
+    }
+}
