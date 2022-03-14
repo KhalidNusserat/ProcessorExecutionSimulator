@@ -39,10 +39,4 @@ public class TasksReader {
         }
         return tasks;
     }
-
-    public static void main(String[] args) {
-        ArrayList<TaskInfo> tasks = readTasksFromFile("./tasks.txt");
-        for (TaskInfo taskInfo : tasks)
-            System.out.println(taskInfo);
-    }
 }
