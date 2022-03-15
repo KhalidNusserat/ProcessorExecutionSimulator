@@ -24,4 +24,8 @@ public class Multiprocessor {
         for (Processor processor : processors)
             processor.executeOneCycle();
     }
+
+    public Processor[] getProcessors() {
+        return processors;
+    }
 }
