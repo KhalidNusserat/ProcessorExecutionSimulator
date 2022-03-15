@@ -36,7 +36,7 @@ public class Simulation {
   }
 
   public boolean isFinished() {
-    return multiprocessor.isAllIdle() && tasksSource.isEmpty();
+    return multiprocessor.isAllIdle() && tasksSource.isEmpty() && scheduler.isEmpty();
   }
 
   public void runSimulation() {
