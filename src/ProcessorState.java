@@ -2,14 +2,14 @@ import java.util.Objects;
 
 public class ProcessorState {
 
-    private final Task runningTask;
+    private final RunningTask runningTask;
 
 
     public ProcessorState(Processor processor) {
         runningTask = processor.getRunningTask();
     }
 
-    public Task getRunningTask() {
+    public RunningTask getRunningTask() {
         return runningTask;
     }
 
@@ -28,7 +28,7 @@ public class ProcessorState {
     @Override
     public String toString() {
         if (!isIdle())
-            return "{Running task #" + runningTask.getInfo().getID() + "}";
+            return "{Running task #" + runningTask.getMetadata().getID() + "}";
         else
             return "{Idle}";
     }

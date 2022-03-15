@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,8 +12,8 @@ public class TasksReader {
     };
 
 
-    public static ArrayList<TaskInfo> readTasksFromFile(String path) {
-        ArrayList<TaskInfo> tasks = new ArrayList<>();
+    public static ArrayList<TaskMetadata> readTasksFromFile(String path) {
+        ArrayList<TaskMetadata> tasks = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(new File(path));
             while (scanner.hasNext()) {
@@ -25,7 +24,7 @@ public class TasksReader {
                     else
                         throw new Exception("Expected " + prefix[i]);
                 }
-                tasks.add(new TaskInfo(
+                tasks.add(new TaskMetadata(
                         data[0],
                         data[1].equalsIgnoreCase("high")
                             ? TaskPriority.HIGH

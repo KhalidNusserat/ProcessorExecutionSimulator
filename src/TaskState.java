@@ -7,11 +7,11 @@ public class TaskState {
     private final int remainingTime;
 
 
-    public TaskState(Task task) {
-        if (task == null)
+    public TaskState(RunningTask runningTask) {
+        if (runningTask == null)
             throw new IllegalArgumentException();
-        processor = task.getProcessor();
-        remainingTime = task.getRemainingTime();
+        processor = runningTask.getProcessor();
+        remainingTime = runningTask.getRemainingTime();
     }
 
     public Processor getProcessor() {
