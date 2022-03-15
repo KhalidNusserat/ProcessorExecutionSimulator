@@ -24,4 +24,13 @@ public class Multiprocessor {
   public Processor[] getProcessors() {
     return processors;
   }
+
+  public void removeFinishedTasks() {
+    for (Processor processor : processors){
+      if (processor.getRunningTask().getRemainingTime() == 0) {
+        processor.getRunningTask().setProcessor(null);
+        processor.setRunningTask(null);
+      }
+    }
+  }
 }
