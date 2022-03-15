@@ -1,11 +1,11 @@
 import java.util.Arrays;
 
-public class Multiprocessors {
+public class Multiprocessor {
 
     private final Processor[] processors;
 
 
-    public Multiprocessors(int numberOfProcessors) {
+    public Multiprocessor(int numberOfProcessors) {
         processors = new Processor[numberOfProcessors];
         for (int i = 0; i < numberOfProcessors; i++)
             processors[i] = new Processor(Integer.toString(i));
