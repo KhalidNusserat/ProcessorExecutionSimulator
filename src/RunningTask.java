@@ -48,6 +48,11 @@ public class RunningTask implements Stateful<TaskState> {
   }
 
   @Override
+  public String toString() {
+    return "RunningTask{" + "metadata=" + metadata + '}';
+  }
+
+  @Override
   public TaskState getState() {
     return new TaskState(this);
   }
