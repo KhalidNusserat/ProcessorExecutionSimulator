@@ -12,6 +12,10 @@ public class Logger<SubjectType extends Stateful<State>, State> {
         this.clock = clock;
     }
 
+    public SubjectType getSubject() {
+        return subject;
+    }
+
     public void setSubject(SubjectType subject) {
         this.subject = subject;
     }
