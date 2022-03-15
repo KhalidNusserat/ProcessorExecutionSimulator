@@ -12,6 +12,7 @@ public class Processor implements Stateful<ProcessorState> {
     }
     this.ID = ID;
     runningTask = null;
+    globalLogger.watchProcessor(this);
   }
 
   public RunningTask getRunningTask() {
