@@ -21,34 +21,7 @@ public class StateHistory<State> implements Iterable<Interval<State>> {
     }
 
     @Override
-    public String toString() {
-        return stateHistory.toString();
-    }
-
-    class StateHistoryIterator implements Iterator<Interval<State>> {
-
-        private int index;
-
-
-        public StateHistoryIterator() {
-            index = 0;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return index < stateHistory.size();
-        }
-
-        @Override
-        public Interval<State> next() {
-            if (index >= stateHistory.size())
-                throw new IndexOutOfBoundsException();
-            return stateHistory.get(index++);
-        }
-    }
-
-    @Override
     public Iterator<Interval<State>> iterator() {
-        return new StateHistoryIterator();
+        return stateHistory.iterator();
     }
 }
