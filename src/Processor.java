@@ -5,8 +5,8 @@ public class Processor implements Stateful<ProcessorState> {
     private RunningTask runningTask;
 
 
-    public Processor(String ID, Clock clock) {
-        if (ID == null || clock == null) {
+    public Processor(String ID) {
+        if (ID == null) {
             throw new IllegalArgumentException();
         }
         this.ID = ID;
