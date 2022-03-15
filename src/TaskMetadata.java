@@ -1,4 +1,4 @@
-public class TaskInfo {
+public class TaskMetadata {
 
     private final String ID;
 
@@ -9,7 +9,7 @@ public class TaskInfo {
     private final int requiredTime;
 
 
-    public TaskInfo(String id, TaskPriority priority, int creationTime, int requiredTime) {
+    public TaskMetadata(String id, TaskPriority priority, int creationTime, int requiredTime) {
         ID = id;
         this.priority = priority;
         this.creationTime = creationTime;
