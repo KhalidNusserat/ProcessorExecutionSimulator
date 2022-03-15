@@ -6,6 +6,8 @@ public class RunningTask implements Stateful<TaskState> {
 
   private int remainingTime;
 
+  private static GlobalLogger globalLogger;
+
   public RunningTask(TaskMetadata metadata) {
     if (metadata == null) throw new IllegalArgumentException();
     this.metadata = metadata;
@@ -27,6 +29,10 @@ public class RunningTask implements Stateful<TaskState> {
 
   public TaskMetadata getMetadata() {
     return metadata;
+  }
+
+  public static void setGlobalLogger(GlobalLogger globalLogger) {
+    RunningTask.globalLogger = globalLogger;
   }
 
   public boolean isDone() {
