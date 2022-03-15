@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class TasksReader {
 
-  private static final String[] prefix = {"-id", "-priority", "-creationTime", "-requiredTime"};
+  private static final String[] prefix = {"id:", "priority:", "creationTime:", "requiredTime:"};
 
   public static ArrayList<TaskMetadata> readTasksFromFile(String path) {
     ArrayList<TaskMetadata> tasks = new ArrayList<>();
