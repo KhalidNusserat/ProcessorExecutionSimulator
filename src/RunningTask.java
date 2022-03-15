@@ -1,25 +1,18 @@
-public class Task implements Stateful<TaskState>, Capturable {
+public class RunningTask implements Stateful<TaskState> {
 
-    private final TaskInfo info;
+    private final TaskMetadata metadata;
 
     private Processor processor;
 
     private int remainingTime;
 
-    private final Logger<Task, TaskState> logger;
 
-
-    public Task(TaskInfo info, Clock clock) {
-        if (info == null || clock == null)
+    public RunningTask(TaskMetadata metadata) {
+        if (metadata == null)
             throw new IllegalArgumentException();
-        this.info = info;
+        this.metadata = metadata;
         processor = null;
-        remainingTime = info.getRequiredTime();
-        logger = new Logger<>(this, clock);
-    }
-
-    public Logger<Task, TaskState> getLogger() {
-        return logger;
+        remainingTime = metadata.getRequiredTime();
     }
 
     public int getRemainingTime() {
@@ -34,8 +27,8 @@ public class Task implements Stateful<TaskState>, Capturable {
         this.processor = processor;
     }
 
-    public TaskInfo getInfo() {
-        return info;
+    public TaskMetadata getMetadata() {
+        return metadata;
     }
 
     public boolean isDone() {
@@ -51,10 +44,5 @@ public class Task implements Stateful<TaskState>, Capturable {
     @Override
     public TaskState getState() {
         return new TaskState(this);
-    }
-
-    @Override
-    public void capture() {
-        logger.capture();
     }
 }
