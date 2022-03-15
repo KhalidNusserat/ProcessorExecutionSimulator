@@ -5,8 +5,8 @@ public class TaskConciseLogOutputFormatter
     result
         .get(result.size() - 1)
         .add(
-            interval.getValue() == null
-                ? "Idle"
+            interval.getValue().getProcessor() == null
+                ? "Idle/Not issued"
                 : "Running on processor " + interval.getValue().getProcessor().getID());
   }
 }
