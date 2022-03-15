@@ -13,6 +13,7 @@ public class RunningTask implements Stateful<TaskState> {
     this.metadata = metadata;
     processor = null;
     remainingTime = metadata.getRequiredTime();
+    globalLogger.watchTask(this);
   }
 
   public int getRemainingTime() {
