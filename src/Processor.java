@@ -20,9 +20,13 @@ public class Processor implements Stateful<ProcessorState> {
   }
 
   public void setRunningTask(RunningTask runningTask) {
-    if (this.runningTask != null) this.runningTask.setProcessor(null);
+    if (this.runningTask != null) {
+      this.runningTask.setProcessor(null);
+    }
     this.runningTask = runningTask;
-    this.runningTask.setProcessor(this);
+    if (this.runningTask != null) {
+      this.runningTask.setProcessor(this);
+    }
   }
 
   public String getID() {
@@ -38,10 +42,6 @@ public class Processor implements Stateful<ProcessorState> {
       return;
     }
     runningTask.executeOneCycle();
-    if (runningTask.getRemainingTime() == 0) {
-      runningTask.setProcessor(null);
-      runningTask = null;
-    }
   }
 
   public boolean isIdle() {
