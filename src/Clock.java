@@ -1,16 +1,16 @@
 public class Clock {
 
-    private int time;
+  private int time;
 
-    public Clock() {
-        time = 0;
-    }
+  public Clock() {
+    time = 0;
+  }
 
-    public void tick() {
-        time++;
-    }
+  public void tick() {
+    time++;
+  }
 
-    public int getTime() {
-        return time;
-    }
+  public int getTime() {
+    return time;
+  }
 }

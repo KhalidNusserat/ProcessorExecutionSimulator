@@ -1,5 +1,7 @@
 public interface Scheduler {
-    void addTask(RunningTask runningTask);
-    void schedule(Processor[] processors);
-    boolean isDone();
+  void addTask(RunningTask runningTask);
+
+  void schedule(Processor[] processors);
+
+  boolean isDone();
 }
