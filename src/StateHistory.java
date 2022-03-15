@@ -17,6 +17,11 @@ public class StateHistory<State> implements Iterable<Interval<State>> {
   }
 
   @Override
+  public String toString() {
+    return "StateHistory: " + stateHistory;
+  }
+
+  @Override
   public Iterator<Interval<State>> iterator() {
     return stateHistory.iterator();
   }
