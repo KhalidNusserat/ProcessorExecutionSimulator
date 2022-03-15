@@ -1,7 +1,7 @@
 import java.util.Iterator;
 
 public class Logger<SubjectType extends Stateful<State>, State>
-        implements Iterable<Interval<State>> {
+    implements Iterable<Interval<State>> {
 
   private SubjectType subject;
 
