@@ -4,6 +4,8 @@ public class Processor implements Stateful<ProcessorState> {
 
   private RunningTask runningTask;
 
+  private static GlobalLogger globalLogger;
+
   public Processor(String ID) {
     if (ID == null) {
       throw new IllegalArgumentException();
@@ -24,6 +26,10 @@ public class Processor implements Stateful<ProcessorState> {
 
   public String getID() {
     return ID;
+  }
+
+  public static void setGlobalLogger(GlobalLogger globalLogger) {
+    Processor.globalLogger = globalLogger;
   }
 
   public void executeOneCycle() {
