@@ -6,7 +6,9 @@ public class Multiprocessor {
 
   public Multiprocessor(int numberOfProcessors) {
     processors = new Processor[numberOfProcessors];
-    for (int i = 0; i < numberOfProcessors; i++) processors[i] = new Processor(Integer.toString(i));
+    for (int i = 0; i < numberOfProcessors; i++) {
+      processors[i] = new Processor(Integer.toString(i));
+    }
   }
 
   public void watchAllProcessors(GlobalLogger globalLogger) {
@@ -26,9 +28,8 @@ public class Multiprocessor {
   }
 
   public void removeFinishedTasks() {
-    for (Processor processor : processors){
-      if (processor.getRunningTask().getRemainingTime() == 0) {
-        processor.getRunningTask().setProcessor(null);
+    for (Processor processor : processors) {
+      if (!processor.isIdle() && processor.getRunningTask().getRemainingTime() == 0) {
         processor.setRunningTask(null);
       }
     }

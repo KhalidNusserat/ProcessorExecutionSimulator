@@ -1,5 +1,4 @@
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class ShortestRemainingTimeFirst implements Scheduler {
   private final PriorityQueue<RunningTask> runningTasks =
@@ -13,15 +12,24 @@ public class ShortestRemainingTimeFirst implements Scheduler {
   @Override
   public void schedule(Processor[] processors) {
     for (Processor processor : processors) {
-      if (runningTasks.isEmpty()) return;
+      if (runningTasks.isEmpty()) {
+        return;
+      }
       if (processor.isIdle()) {
         processor.setRunningTask(runningTasks.poll());
       } else if (processor.getRunningTask().getMetadata().getPriority() == TaskPriority.LOW
           && runningTasks.peek().getMetadata().getPriority() == TaskPriority.HIGH) {
+        processor.getRunningTask().setProcessor(null);
         runningTasks.add(processor.getRunningTask());
         processor.setRunningTask(runningTasks.poll());
       }
     }
+  }
+
+  public void test() {
+    ArrayList<RunningTask> runningTasks = new ArrayList<>(this.runningTasks);
+    runningTasks.sort(new TasksComparator());
+    System.out.println(runningTasks);
   }
 
   @Override
@@ -35,8 +43,8 @@ public class ShortestRemainingTimeFirst implements Scheduler {
     public int compare(RunningTask o1, RunningTask o2) {
       TaskPriority priority1 = o1.getMetadata().getPriority();
       TaskPriority priority2 = o2.getMetadata().getPriority();
-      if (priority1 == TaskPriority.HIGH && priority2 == TaskPriority.LOW) return 1;
-      else if (priority1 == TaskPriority.LOW && priority2 == TaskPriority.HIGH) return -1;
+      if (priority1 == TaskPriority.HIGH && priority2 == TaskPriority.LOW) return -1;
+      else if (priority1 == TaskPriority.LOW && priority2 == TaskPriority.HIGH) return 1;
       else return o1.getRemainingTime() - o2.getRemainingTime();
     }
   }
