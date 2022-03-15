@@ -26,7 +26,7 @@ public class Simulation {
     tasksSource.createNewTasks(tasks);
   }
 
-  public void executeOneCycle() {
+  private void executeOneCycle() {
     tasksSource.issue(scheduler);
     scheduler.schedule(multiprocessor.getProcessors());
     multiprocessor.executeAllProcessors();
