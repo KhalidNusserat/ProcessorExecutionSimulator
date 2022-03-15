@@ -1,25 +1,23 @@
-public class Processor implements Stateful<ProcessorState>, Capturable {
+public class Processor implements Stateful<ProcessorState> {
 
     private final String ID;
 
-    private final Logger<Processor, ProcessorState> logger;
-
-    private Task runningTask;
+    private RunningTask runningTask;
 
 
     public Processor(String ID, Clock clock) {
-        if (ID == null || clock == null)
+        if (ID == null || clock == null) {
             throw new IllegalArgumentException();
+        }
         this.ID = ID;
-        logger = new Logger<>(this, clock);
         runningTask = null;
     }
 
-    public Task getRunningTask() {
+    public RunningTask getRunningTask() {
         return runningTask;
     }
 
-    public void setRunningTask(Task runningTask) {
+    public void setRunningTask(RunningTask runningTask) {
         if (this.runningTask != null)
             this.runningTask.setProcessor(null);
         this.runningTask = runningTask;
@@ -30,21 +28,23 @@ public class Processor implements Stateful<ProcessorState>, Capturable {
         return ID;
     }
 
-    public Logger<Processor, ProcessorState> getLogger() {
-        return logger;
+    public void executeOneCycle() {
+        if (runningTask == null) {
+            return;
+        }
+        runningTask.executeOneCycle();
+        if (runningTask.getRemainingTime() == 0) {
+            runningTask.setProcessor(null);
+            runningTask = null;
+        }
     }
 
-    public void executeOneCycle() {
-        runningTask.executeOneCycle();
+    public boolean isIdle() {
+        return runningTask == null;
     }
 
     @Override
     public ProcessorState getState() {
         return new ProcessorState(this);
-    }
-
-    @Override
-    public void capture() {
-        logger.capture();
     }
 }
