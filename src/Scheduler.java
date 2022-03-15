@@ -3,5 +3,5 @@ public interface Scheduler {
 
   void schedule(Processor[] processors);
 
-  boolean isDone();
+  boolean isEmpty();
 }

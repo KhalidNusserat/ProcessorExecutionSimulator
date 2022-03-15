@@ -25,7 +25,7 @@ public class ShortestRemainingTimeFirst implements Scheduler {
   }
 
   @Override
-  public boolean isDone() {
+  public boolean isEmpty() {
     return runningTasks.isEmpty();
   }
 
