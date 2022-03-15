@@ -1,4 +1,7 @@
-public class Logger<SubjectType extends Stateful<State>, State> {
+import java.util.Iterator;
+
+public class Logger<SubjectType extends Stateful<State>, State>
+        implements Iterable<Interval<State>> {
 
   private SubjectType subject;
 
@@ -26,5 +29,10 @@ public class Logger<SubjectType extends Stateful<State>, State> {
   @Override
   public String toString() {
     return stateHistory.toString();
+  }
+
+  @Override
+  public Iterator<Interval<State>> iterator() {
+    return stateHistory.iterator();
   }
 }
