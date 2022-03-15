@@ -2,14 +2,8 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class ShortestRemainingTimeFirst implements Scheduler {
-    private final Processor[] processors;
-
     private final PriorityQueue<RunningTask> runningTasks = new PriorityQueue<>(new TasksComparator());
 
-
-    public ShortestRemainingTimeFirst(Processor[] processors) {
-        this.processors = processors;
-    }
 
     @Override
     public void addTask(RunningTask runningTask) {
@@ -17,7 +11,7 @@ public class ShortestRemainingTimeFirst implements Scheduler {
     }
 
     @Override
-    public void schedule() {
+    public void schedule(Processor[] processors) {
         for (Processor processor : processors) {
             if (runningTasks.isEmpty())
                 return;
