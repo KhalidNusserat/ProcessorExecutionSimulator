@@ -1,21 +1,18 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
-public class TasksSource {
+public class TasksStream {
 
-  private final ArrayList<RunningTask> runningTasks = new ArrayList<>();
+  private final HashSet<RunningTask> runningTasks = new HashSet<>();
 
   private final Clock clock;
 
-  public TasksSource(Clock clock) {
+  public TasksStream(Clock clock) {
     this.clock = clock;
   }
 
-  public void createNewTask(TaskMetadata taskInfo) {
-    runningTasks.add(new RunningTask(taskInfo));
-  }
-
-  public void createNewTasks(ArrayList<TaskMetadata> tasks) {
-    for (TaskMetadata taskInfo : tasks) createNewTask(taskInfo);
+  public void addTasks(ArrayList<RunningTask> runningTasks) {
+    this.runningTasks.addAll(runningTasks);
   }
 
   public boolean isEmpty() {
@@ -30,6 +27,6 @@ public class TasksSource {
         toRemove.add(runningTask);
       }
     }
-    runningTasks.removeAll(toRemove);
+    toRemove.forEach(runningTasks::remove);
   }
 }
