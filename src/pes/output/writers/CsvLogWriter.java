@@ -1,4 +1,4 @@
-package pes.output;
+package pes.output.writers;
 
 import java.io.File;
 import java.io.FileWriter;

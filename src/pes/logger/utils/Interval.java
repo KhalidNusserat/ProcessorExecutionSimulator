@@ -1,4 +1,4 @@
-package pes.logger;
+package pes.logger.utils;
 
 public class Interval<E> {
 
@@ -16,7 +16,7 @@ public class Interval<E> {
 
   @Override
   public String toString() {
-    return "pes.logger.Interval {"
+    return "pes.logger.utils.Interval {"
         + "\n\tvalue="
         + value
         + ",\n\tstart="

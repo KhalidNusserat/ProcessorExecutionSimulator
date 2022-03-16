@@ -1,4 +1,4 @@
-package pes.logger;
+package pes.logger.state;
 
 public class StateBuilder<E> {
   private final String type;

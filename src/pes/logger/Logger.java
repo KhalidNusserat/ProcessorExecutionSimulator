@@ -1,6 +1,9 @@
 package pes.logger;
 
 import pes.Clock;
+import pes.logger.state.State;
+import pes.logger.state.Stateful;
+import pes.logger.utils.Interval;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,7 +27,7 @@ public class Logger implements Iterable<Interval<State>> {
   }
 
   public ArrayList<String> getSubjectProperties() {
-    return subject.getState().getProperties();
+    return subject.getState().getFields();
   }
 
   public void capture() {

@@ -1,4 +1,4 @@
-package pes.logger;
+package pes.logger.state;
 
 public interface Stateful {
   State getState();

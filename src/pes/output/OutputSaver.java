@@ -1,20 +1,21 @@
 package pes.output;
 
-import pes.formatters.LogFormatter;
+import pes.output.formatters.log_formatters.LogFormatter;
 import pes.logger.Logger;
+import pes.output.writers.LogWriter;
 
 import java.io.File;
 import java.util.AbstractList;
 import java.util.HashMap;
 
-public class OutputWriter {
+public class OutputSaver {
   private final LogWriter logWriter;
 
   private final LogFormatter logFormatter;
 
   private final HashMap<String, TypeOutputWriter> outputWriterHashMap = new HashMap<>();
 
-  public OutputWriter(LogWriter logWriter, LogFormatter logFormatter) {
+  public OutputSaver(LogWriter logWriter, LogFormatter logFormatter) {
     this.logWriter = logWriter;
     this.logFormatter = logFormatter;
   }
@@ -34,7 +35,7 @@ public class OutputWriter {
         String basePath = path + "/output/" + currentType + "/";
         createDirectory(basePath);
         LogFormatter logFormatter = this.logFormatter.clone();
-        logFormatter.setProperties(logger.getSubjectProperties());
+        logFormatter.setFields(logger.getSubjectProperties());
         TypeOutputWriter typeOutputWriter =
             new TypeOutputWriter(logWriter, basePath + currentType, logFormatter);
         outputWriterHashMap.put(currentType, typeOutputWriter);

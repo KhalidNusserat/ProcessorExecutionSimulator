@@ -1,8 +1,8 @@
-package pes.formatters;
+package pes.output.formatters.log_formatters;
 
-import pes.logger.Interval;
+import pes.logger.utils.Interval;
 import pes.logger.Logger;
-import pes.logger.State;
+import pes.logger.state.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +33,8 @@ public class ConciseLogFormatter implements LogFormatter {
   }
 
   @Override
-  public void setProperties(ArrayList<String> properties) {
-    this.properties = properties;
+  public void setFields(ArrayList<String> fields) {
+    this.properties = fields;
   }
 
   @Override

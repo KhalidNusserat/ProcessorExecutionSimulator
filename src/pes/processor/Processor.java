@@ -1,9 +1,9 @@
 package pes.processor;
 
 import pes.logger.GlobalLogger;
-import pes.logger.State;
-import pes.logger.StateBuilder;
-import pes.logger.Stateful;
+import pes.logger.state.State;
+import pes.logger.state.StateBuilder;
+import pes.logger.state.Stateful;
 import pes.task.RunningTask;
 
 import java.util.Objects;

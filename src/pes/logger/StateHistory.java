@@ -1,5 +1,7 @@
 package pes.logger;
 
+import pes.logger.utils.Interval;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 

@@ -5,6 +5,7 @@ import pes.processor.Multiprocessor;
 import pes.processor.Processor;
 import pes.schedulers.Scheduler;
 import pes.task.RunningTask;
+import pes.task.TasksStream;
 
 import java.util.ArrayList;
 

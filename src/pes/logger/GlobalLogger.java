@@ -1,6 +1,7 @@
 package pes.logger;
 
 import pes.Clock;
+import pes.logger.state.Stateful;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -1,7 +1,8 @@
 package pes.output;
 
-import pes.formatters.LogFormatter;
+import pes.output.formatters.log_formatters.LogFormatter;
 import pes.logger.Logger;
+import pes.output.writers.LogWriter;
 
 import java.io.IOException;
 
