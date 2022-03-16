@@ -1,3 +1,11 @@
+package pes;
+
+import pes.logger.GlobalLogger;
+import pes.processor.Multiprocessor;
+import pes.processor.Processor;
+import pes.schedulers.Scheduler;
+import pes.task.RunningTask;
+
 import java.util.ArrayList;
 
 public class Simulation {

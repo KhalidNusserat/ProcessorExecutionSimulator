@@ -1,3 +1,9 @@
+package pes.schedulers;
+
+import pes.processor.Processor;
+import pes.task.RunningTask;
+import pes.task.TaskPriority;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;

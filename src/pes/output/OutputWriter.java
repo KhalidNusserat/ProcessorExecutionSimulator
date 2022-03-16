@@ -1,3 +1,8 @@
+package pes.output;
+
+import pes.formatters.LogFormatter;
+import pes.logger.Logger;
+
 import java.io.File;
 import java.util.AbstractList;
 import java.util.HashMap;

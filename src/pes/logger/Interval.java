@@ -1,3 +1,5 @@
+package pes.logger;
+
 public class Interval<E> {
 
   private final E value;
@@ -14,7 +16,14 @@ public class Interval<E> {
 
   @Override
   public String toString() {
-    return "Interval {" + "\n\tvalue=" + value + ",\n\tstart=" + start + ",\n\tend=" + end + "\n}";
+    return "pes.logger.Interval {"
+        + "\n\tvalue="
+        + value
+        + ",\n\tstart="
+        + start
+        + ",\n\tend="
+        + end
+        + "\n}";
   }
 
   public E getValue() {

@@ -1,3 +1,8 @@
+package pes.output;
+
+import pes.formatters.LogFormatter;
+import pes.logger.Logger;
+
 import java.io.IOException;
 
 public class TypeOutputWriter {

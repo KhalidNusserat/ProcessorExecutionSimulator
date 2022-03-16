@@ -1,3 +1,5 @@
+package pes.output;
+
 import java.io.IOException;
 
 public interface LogWriter {

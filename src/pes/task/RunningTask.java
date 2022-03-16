@@ -1,3 +1,11 @@
+package pes.task;
+
+import pes.logger.GlobalLogger;
+import pes.logger.State;
+import pes.logger.StateBuilder;
+import pes.logger.Stateful;
+import pes.processor.Processor;
+
 import java.util.Objects;
 
 public class RunningTask implements Stateful {
@@ -48,7 +56,7 @@ public class RunningTask implements Stateful {
 
   @Override
   public String toString() {
-    return "RunningTask{" + "metadata=" + metadata + '}';
+    return "pes.task.RunningTask{" + "metadata=" + metadata + '}';
   }
 
   @Override

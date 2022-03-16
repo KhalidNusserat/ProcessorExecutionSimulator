@@ -1,3 +1,8 @@
+package pes.input;
+
+import pes.task.TaskMetadata;
+import pes.task.TaskPriority;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;

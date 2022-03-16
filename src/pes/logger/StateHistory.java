@@ -1,3 +1,5 @@
+package pes.logger;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -22,7 +24,7 @@ public class StateHistory<State> implements Iterable<Interval<State>> {
 
   @Override
   public String toString() {
-    return "StateHistory: " + stateHistory;
+    return "pes.logger.StateHistory: " + stateHistory;
   }
 
   @Override

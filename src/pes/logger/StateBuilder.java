@@ -1,3 +1,5 @@
+package pes.logger;
+
 public class StateBuilder<E> {
   private final String type;
 

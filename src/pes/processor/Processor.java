@@ -1,3 +1,11 @@
+package pes.processor;
+
+import pes.logger.GlobalLogger;
+import pes.logger.State;
+import pes.logger.StateBuilder;
+import pes.logger.Stateful;
+import pes.task.RunningTask;
+
 import java.util.Objects;
 
 public class Processor implements Stateful {

@@ -1,3 +1,8 @@
+package pes;
+
+import pes.schedulers.Scheduler;
+import pes.task.RunningTask;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 

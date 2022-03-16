@@ -1,3 +1,7 @@
+package pes.formatters;
+
+import pes.logger.Logger;
+
 import java.util.ArrayList;
 
 public interface LogFormatter {

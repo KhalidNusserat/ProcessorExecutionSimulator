@@ -1,3 +1,5 @@
+package pes;
+
 public class Clock {
 
   private int time;

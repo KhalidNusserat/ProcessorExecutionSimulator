@@ -1,3 +1,5 @@
+package pes.task;
+
 import java.util.Objects;
 
 public class TaskMetadata {
