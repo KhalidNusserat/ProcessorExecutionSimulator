@@ -1,10 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class GlobalLogger {
-
-  private final ArrayList<Logger<RunningTask, TaskState>> runningTasksLoggers = new ArrayList<>();
-
-  private final ArrayList<Logger<Processor, ProcessorState>> processorsLoggers = new ArrayList<>();
+  private final HashSet<Logger> loggers = new HashSet<>();
 
   private final Clock clock;
 
@@ -12,29 +10,16 @@ public class GlobalLogger {
     this.clock = clock;
   }
 
-  public void watchTask(RunningTask runningTask) {
-    for (Logger<RunningTask, TaskState> taskLogger : runningTasksLoggers)
-      if (taskLogger.getSubject() == runningTask) return;
-    runningTasksLoggers.add(new Logger<>(runningTask, clock));
-  }
-
-  public void watchProcessor(Processor processor) {
-    for (Logger<Processor, ProcessorState> processorLogger : processorsLoggers)
-      if (processorLogger.getSubject() == processor) return;
-    processorsLoggers.add(new Logger<>(processor, clock));
+  public void watch(Stateful stateful) {
+    Logger logger = new Logger(stateful, clock);
+    loggers.add(logger);
   }
 
   public void captureAll() {
-    for (Logger<RunningTask, TaskState> taskLogger : runningTasksLoggers) taskLogger.capture();
-    for (Logger<Processor, ProcessorState> processorLogger : processorsLoggers)
-      processorLogger.capture();
+    loggers.forEach(Logger::capture);
   }
 
-  public ArrayList<Logger<Processor, ProcessorState>> getProcessorsLoggers() {
-    return new ArrayList<>(processorsLoggers);
-  }
-
-  public ArrayList<Logger<RunningTask, TaskState>> getRunningTasksLoggers() {
-    return new ArrayList<>(runningTasksLoggers);
+  public ArrayList<Logger> getLoggersArray() {
+    return new ArrayList<>(loggers);
   }
 }

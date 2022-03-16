@@ -11,10 +11,6 @@ public class Multiprocessor {
     }
   }
 
-  public void watchAllProcessors(GlobalLogger globalLogger) {
-    for (Processor processor : processors) globalLogger.watchProcessor(processor);
-  }
-
   public boolean isAllIdle() {
     return Arrays.stream(processors).allMatch(Processor::isIdle);
   }

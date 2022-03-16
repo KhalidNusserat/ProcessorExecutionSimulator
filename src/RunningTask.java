@@ -1,19 +1,22 @@
-public class RunningTask implements Stateful<TaskState> {
+import java.util.Objects;
 
-  private final TaskMetadata metadata;
-
-  private Processor processor;
-
-  private int remainingTime;
+public class RunningTask implements Stateful {
 
   private static GlobalLogger globalLogger;
+  private final TaskMetadata metadata;
+  private Processor processor;
+  private int remainingTime;
 
   public RunningTask(TaskMetadata metadata) {
     if (metadata == null) throw new IllegalArgumentException();
     this.metadata = metadata;
     processor = null;
     remainingTime = metadata.getRequiredTime();
-    globalLogger.watchTask(this);
+    globalLogger.watch(this);
+  }
+
+  public static void setGlobalLogger(GlobalLogger globalLogger) {
+    RunningTask.globalLogger = globalLogger;
   }
 
   public int getRemainingTime() {
@@ -30,10 +33,6 @@ public class RunningTask implements Stateful<TaskState> {
 
   public TaskMetadata getMetadata() {
     return metadata;
-  }
-
-  public static void setGlobalLogger(GlobalLogger globalLogger) {
-    RunningTask.globalLogger = globalLogger;
   }
 
   public boolean isDone() {
@@ -53,7 +52,23 @@ public class RunningTask implements Stateful<TaskState> {
   }
 
   @Override
-  public TaskState getState() {
-    return new TaskState(this);
+  public State getState() {
+    StateBuilder taskStateBuilder = new StateBuilder("runningTask", "processor", "remainingTime");
+    String processorState = "Not running";
+    if (processor != null) processorState = "Running on processor " + processor.getID();
+    return taskStateBuilder.getNewState(processorState, Integer.toString(remainingTime));
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RunningTask that = (RunningTask) o;
+    return metadata.equals(that.metadata);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(metadata);
   }
 }

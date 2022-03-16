@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class TaskMetadata {
 
   private final String ID;
@@ -44,5 +46,18 @@ public class TaskMetadata {
         + ", requiredTime="
         + requiredTime
         + '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TaskMetadata that = (TaskMetadata) o;
+    return ID.equals(that.ID);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ID);
   }
 }

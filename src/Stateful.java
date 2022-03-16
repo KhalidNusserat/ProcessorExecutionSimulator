@@ -1,3 +1,3 @@
-public interface Stateful<State> {
+public interface Stateful {
   State getState();
 }

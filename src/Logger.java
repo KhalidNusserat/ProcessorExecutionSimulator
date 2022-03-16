@@ -1,25 +1,26 @@
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 
-public class Logger<SubjectType extends Stateful<State>, State>
-    implements Iterable<Interval<State>> {
+public class Logger implements Iterable<Interval<State>> {
 
-  private SubjectType subject;
+  private final Stateful subject;
 
   private final Clock clock;
 
   private final StateHistory<State> stateHistory = new StateHistory<>();
 
-  public Logger(SubjectType subject, Clock clock) {
+  public Logger(Stateful subject, Clock clock) {
     this.subject = subject;
     this.clock = clock;
   }
 
-  public SubjectType getSubject() {
-    return subject;
+  public String getSubjectType() {
+    return subject.getState().getType();
   }
 
-  public void setSubject(SubjectType subject) {
-    this.subject = subject;
+  public ArrayList<String> getSubjectProperties() {
+    return subject.getState().getProperties();
   }
 
   public void capture() {
@@ -34,5 +35,18 @@ public class Logger<SubjectType extends Stateful<State>, State>
   @Override
   public Iterator<Interval<State>> iterator() {
     return stateHistory.iterator();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Logger logger = (Logger) o;
+    return subject.equals(logger.subject);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(subject);
   }
 }

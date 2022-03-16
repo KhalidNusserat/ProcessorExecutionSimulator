@@ -8,7 +8,7 @@ public class Simulation {
 
   private final Multiprocessor multiprocessor;
 
-  private final TasksSource tasksSource;
+  private final TasksStream tasksStream;
 
   private final Scheduler scheduler;
 
@@ -19,15 +19,15 @@ public class Simulation {
     RunningTask.setGlobalLogger(globalLogger);
     Processor.setGlobalLogger(globalLogger);
     multiprocessor = new Multiprocessor(numberOfProcessors);
-    tasksSource = new TasksSource(clock);
+    tasksStream = new TasksStream(clock);
   }
 
-  public void addTasks(ArrayList<TaskMetadata> tasks) {
-    tasksSource.createNewTasks(tasks);
+  public void addTasks(ArrayList<RunningTask> tasks) {
+    tasksStream.addTasks(tasks);
   }
 
   private void executeOneCycle() {
-    tasksSource.issue(scheduler);
+    tasksStream.issue(scheduler);
     scheduler.schedule(multiprocessor.getProcessors());
     multiprocessor.executeAllProcessors();
     globalLogger.captureAll();
@@ -36,7 +36,7 @@ public class Simulation {
   }
 
   public boolean isFinished() {
-    return multiprocessor.isAllIdle() && tasksSource.isEmpty() && scheduler.isEmpty();
+    return multiprocessor.isAllIdle() && tasksStream.isEmpty() && scheduler.isEmpty();
   }
 
   public void runSimulation() {

@@ -16,6 +16,10 @@ public class StateHistory<State> implements Iterable<Interval<State>> {
     }
   }
 
+  public boolean isEmpty() {
+    return stateHistory.isEmpty();
+  }
+
   @Override
   public String toString() {
     return "StateHistory: " + stateHistory;

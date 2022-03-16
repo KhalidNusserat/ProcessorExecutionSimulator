@@ -1,10 +1,10 @@
-public class Processor implements Stateful<ProcessorState> {
+import java.util.Objects;
 
-  private final String ID;
-
-  private RunningTask runningTask;
+public class Processor implements Stateful {
 
   private static GlobalLogger globalLogger;
+  private final String ID;
+  private RunningTask runningTask;
 
   public Processor(String ID) {
     if (ID == null) {
@@ -12,7 +12,11 @@ public class Processor implements Stateful<ProcessorState> {
     }
     this.ID = ID;
     runningTask = null;
-    globalLogger.watchProcessor(this);
+    globalLogger.watch(this);
+  }
+
+  public static void setGlobalLogger(GlobalLogger globalLogger) {
+    Processor.globalLogger = globalLogger;
   }
 
   public RunningTask getRunningTask() {
@@ -33,10 +37,6 @@ public class Processor implements Stateful<ProcessorState> {
     return ID;
   }
 
-  public static void setGlobalLogger(GlobalLogger globalLogger) {
-    Processor.globalLogger = globalLogger;
-  }
-
   public void executeOneCycle() {
     if (runningTask == null) {
       return;
@@ -49,7 +49,23 @@ public class Processor implements Stateful<ProcessorState> {
   }
 
   @Override
-  public ProcessorState getState() {
-    return new ProcessorState(this);
+  public State getState() {
+    StateBuilder processorStateBuilder = new StateBuilder("processor", "runningTask");
+    String runningTaskState = "Idle";
+    if (!isIdle()) runningTaskState = "Running task " + runningTask.getMetadata().getID();
+    return processorStateBuilder.getNewState(runningTaskState);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Processor processor = (Processor) o;
+    return ID.equals(processor.ID);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ID);
   }
 }
