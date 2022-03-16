@@ -17,8 +17,7 @@ public class OutputWriter {
   private void createDirectory(String path) throws Exception {
     File directory = new File(path);
     if (!directory.exists()) {
-      if (!directory.mkdir())
-        throw new Exception("Could not create the directory " + path);
+      if (!directory.mkdir()) throw new Exception("Could not create the directory " + path);
     }
   }
 
@@ -31,8 +30,8 @@ public class OutputWriter {
         createDirectory(basePath);
         LogFormatter logFormatter = this.logFormatter.clone();
         logFormatter.setProperties(logger.getSubjectProperties());
-        TypeOutputWriter typeOutputWriter = new TypeOutputWriter(
-                logWriter, basePath + currentType, logFormatter);
+        TypeOutputWriter typeOutputWriter =
+            new TypeOutputWriter(logWriter, basePath + currentType, logFormatter);
         outputWriterHashMap.put(currentType, typeOutputWriter);
       }
       outputWriterHashMap.get(currentType).writeLogFile(logger);

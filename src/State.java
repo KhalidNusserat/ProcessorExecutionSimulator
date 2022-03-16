@@ -31,10 +31,8 @@ public class State implements Iterable<String> {
 
   @Override
   public boolean equals(Object other) {
-    if (other == null)
-      return false;
-    if (!other.getClass().getName().equals(this.getClass().getName()))
-      return false;
+    if (other == null) return false;
+    if (!other.getClass().getName().equals(this.getClass().getName())) return false;
     State otherState = (State) other;
     for (String property : propertyValue.keySet()) {
       if (!propertyValue.get(property).equals(otherState.getValueOf(property))) {

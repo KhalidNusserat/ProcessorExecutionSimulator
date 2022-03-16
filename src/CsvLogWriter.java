@@ -8,7 +8,7 @@ public class CsvLogWriter implements LogWriter {
     path += ".csv";
     File file = new File(path);
     if (!file.createNewFile()) {
-      throw new IOException("Could not create file "+ path);
+      throw new IOException("Could not create file " + path);
     }
     FileWriter fileWriter = new FileWriter(file);
     for (String[] row : data) {
