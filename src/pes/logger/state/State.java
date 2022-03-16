@@ -27,8 +27,8 @@ public class State implements Iterable<String> {
     return type;
   }
 
-  public ArrayList<String> getFields() {
-    return new ArrayList<>(fieldValue.keySet());
+  public String[] getFields() {
+    return fieldValue.keySet().toArray(new String[0]);
   }
 
   @Override

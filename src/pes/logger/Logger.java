@@ -26,7 +26,7 @@ public class Logger implements Iterable<Interval<State>> {
     return subject.getState().getType();
   }
 
-  public ArrayList<String> getSubjectProperties() {
+  public String[] getSubjectFields() {
     return subject.getState().getFields();
   }
 

@@ -1,24 +1,25 @@
 package pes.output.writers;
 
+import pes.output.OutputFile;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CsvLogWriter implements LogWriter {
   @Override
-  public void writeToFile(String path, String[][] data) throws IOException {
-    path += ".csv";
-    File file = new File(path);
+  public void write(OutputFile outputFile) throws IOException {
+    File file = new File(outputFile.getPath());
     if (!file.createNewFile()) {
-      throw new IOException("Could not create file " + path);
+      throw new IOException("Could not create file " + outputFile.getPath());
     }
     FileWriter fileWriter = new FileWriter(file);
-    for (String[] row : data) {
-      for (int j = 0; j < data[0].length; j++) {
-        fileWriter.write(row[j]);
-        if (j < data[0].length - 1) fileWriter.write(',');
+    for (ArrayList<String> row : outputFile) {
+      for (String col : row) {
+        fileWriter.write(col + ".csv");
       }
-      fileWriter.write('\n');
+      fileWriter.write("\n");
     }
     fileWriter.close();
   }
