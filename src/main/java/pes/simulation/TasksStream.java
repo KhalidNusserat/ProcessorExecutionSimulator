@@ -1,0 +1,38 @@
+package pes.simulation;
+
+import pes.schedulers.Scheduler;
+import pes.task.RunningTask;
+
+import java.util.AbstractCollection;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+public class TasksStream {
+
+  private final HashSet<RunningTask> runningTasks = new HashSet<>();
+
+  private final Clock clock;
+
+  public TasksStream(Clock clock) {
+    this.clock = clock;
+  }
+
+  public void addTasks(AbstractCollection<RunningTask> runningTasks) {
+    this.runningTasks.addAll(runningTasks);
+  }
+
+  public boolean isEmpty() {
+    return runningTasks.isEmpty();
+  }
+
+  public void issue(Scheduler scheduler) {
+    ArrayList<RunningTask> toRemove = new ArrayList<>();
+    for (RunningTask runningTask : runningTasks) {
+      if (runningTask.getMetadata().getCreationTime() == clock.getClockCyclesCount()) {
+        scheduler.addTask(runningTask);
+        toRemove.add(runningTask);
+      }
+    }
+    toRemove.forEach(runningTasks::remove);
+  }
+}
