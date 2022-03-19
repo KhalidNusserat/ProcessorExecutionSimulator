@@ -69,10 +69,6 @@ public class Task implements Stateful {
     return creationTime;
   }
 
-  public int getRequiredTime() {
-    return requiredTime;
-  }
-
   public boolean isCreated() {
     return isCreated;
   }
