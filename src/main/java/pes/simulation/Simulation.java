@@ -24,7 +24,13 @@ public class Simulation {
 
   private final GlobalRecorder globalRecorder;
 
-  private final SimulationConfiguration configuration;
+  private final Scheduler scheduler;
+
+  private final Formatter formatter;
+
+  private final RecordWriter writer;
+
+  private final String outputDirectory;
 
   private ArrayList<Processor> processors;
 
@@ -32,9 +38,12 @@ public class Simulation {
     clock = new Clock();
     tasksStream = new TasksStream(clock);
     globalRecorder = new GlobalRecorder();
-    this.configuration = configuration;
     createProcessors(configuration.getNumberOfProcessors());
     addTasks(configuration.getTasks());
+    scheduler = configuration.getScheduler();
+    formatter = configuration.getFormatter();
+    writer = configuration.getWriter();
+    outputDirectory = configuration.getOutputDirectory();
   }
 
   private void createProcessors(int numberOfProcessors) {
@@ -58,12 +67,10 @@ public class Simulation {
   }
 
   private boolean isFinished() {
-    Scheduler scheduler = configuration.getScheduler();
     return areAllProcessorsIdle() && tasksStream.isEmpty() && scheduler.isEmpty();
   }
 
   private void executeOneCycle() {
-    Scheduler scheduler = configuration.getScheduler();
     tasksStream.issue(scheduler);
     scheduler.schedule(processors);
     globalRecorder.recordAll(clock.getClockCyclesCount());
@@ -80,9 +87,6 @@ public class Simulation {
   }
 
   public void writeOutput() throws IOException {
-    Formatter formatter = configuration.getFormatter();
-    String outputDirectory = configuration.getOutputDirectory();
-    RecordWriter writer = configuration.getWriter();
     ArrayList<Recorder> recorders = globalRecorder.getRecorders();
     ArrayList<OutputFile> outputFiles = formatter.formatAllRecords(recorders);
     outputFiles.forEach(outputFile -> outputFile.setOutputDirectory(outputDirectory));
