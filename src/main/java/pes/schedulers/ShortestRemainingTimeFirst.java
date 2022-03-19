@@ -2,7 +2,7 @@ package pes.schedulers;
 
 import pes.processor.Processor;
 import pes.state.Stateful;
-import pes.task.RunningTask;
+import pes.task.Task;
 import pes.task.TaskPriority;
 
 import java.util.AbstractCollection;
@@ -11,54 +11,54 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class ShortestRemainingTimeFirst implements Scheduler {
-  private final PriorityQueue<RunningTask> runningTasks =
+  private final PriorityQueue<Task> tasks =
       new PriorityQueue<>(new TasksComparator());
 
   @Override
-  public void addTask(RunningTask runningTask) {
-    runningTasks.add(runningTask);
+  public void addTask(Task task) {
+    tasks.add(task);
   }
 
   @Override
   public void schedule(AbstractCollection<Processor> processors) {
     for (Processor processor : processors) {
-      if (runningTasks.isEmpty()) {
+      if (tasks.isEmpty()) {
         return;
       }
       if (processor.isIdle()) {
-        processor.setRunningTask(runningTasks.poll());
-      } else if (processor.getRunningTask().getMetadata().getPriority() == TaskPriority.LOW
-          && runningTasks.peek().getMetadata().getPriority() == TaskPriority.HIGH) {
+        processor.setRunningTask(tasks.poll());
+      } else if (processor.getRunningTask().getPriority() == TaskPriority.LOW
+          && tasks.peek().getPriority() == TaskPriority.HIGH) {
         // TODO: this is ugly, fix it
         processor.getRunningTask().setProcessor(null);
-        runningTasks.add(processor.getRunningTask());
-        processor.setRunningTask(runningTasks.poll());
+        tasks.add(processor.getRunningTask());
+        processor.setRunningTask(tasks.poll());
       }
     }
   }
 
   public void test() {
-    ArrayList<RunningTask> runningTasks = new ArrayList<>(this.runningTasks);
-    runningTasks.sort(new TasksComparator());
-    System.out.println(runningTasks);
+    ArrayList<Task> tasks = new ArrayList<>(this.tasks);
+    tasks.sort(new TasksComparator());
+    System.out.println(tasks);
   }
 
   @Override
   public boolean isEmpty() {
-    return runningTasks.isEmpty();
+    return tasks.isEmpty();
   }
 
   @Override
   public ArrayList<Stateful> getRunningTasks() {
-    return new ArrayList<>(runningTasks);
+    return new ArrayList<>(tasks);
   }
 
-  private static class TasksComparator implements Comparator<RunningTask> {
+  private static class TasksComparator implements Comparator<Task> {
 
     @Override
-    public int compare(RunningTask o1, RunningTask o2) {
-      TaskPriority priority1 = o1.getMetadata().getPriority();
-      TaskPriority priority2 = o2.getMetadata().getPriority();
+    public int compare(Task o1, Task o2) {
+      TaskPriority priority1 = o1.getPriority();
+      TaskPriority priority2 = o2.getPriority();
       if (priority1 == TaskPriority.HIGH && priority2 == TaskPriority.LOW) return -1;
       else if (priority1 == TaskPriority.LOW && priority2 == TaskPriority.HIGH) return 1;
       else return o1.getRemainingTime() - o2.getRemainingTime();

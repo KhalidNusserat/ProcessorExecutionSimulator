@@ -5,6 +5,7 @@ import pes.output.formatters.RecordFormatter;
 import pes.recorders.Recorder;
 
 import java.util.AbstractCollection;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ConciseFormatter implements RecordFormatter { // TODO: is it really a factory?
@@ -21,6 +22,10 @@ public class ConciseFormatter implements RecordFormatter { // TODO: is it really
 
   @Override
   public AbstractCollection<OutputFile> formatAllRecords(AbstractCollection<Recorder> recorders) {
-    return null;
+    ArrayList<OutputFile> outputFiles = new ArrayList<>();
+    for (Recorder recorder : recorders) {
+      outputFiles.add(formatRecords(recorder));
+    }
+    return outputFiles;
   }
 }

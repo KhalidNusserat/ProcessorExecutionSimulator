@@ -5,8 +5,7 @@ import pes.recorders.GlobalRecorder;
 import pes.recorders.Recorder;
 import pes.schedulers.Scheduler;
 import pes.state.Stateful;
-import pes.task.RunningTask;
-import pes.task.TaskMetadata;
+import pes.task.Task;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;
@@ -34,16 +33,15 @@ public class Simulation {
     processors = new ArrayList<>();
     for (int i = 0; i < numberOfProcessors; i++) {
       Processor processor = new Processor(i);
-      globalRecorder.watch(processor, "processor");
+      globalRecorder.watch(processor, "Processor");
       processors.add(processor);
     }
   }
 
-  public void createTasks(AbstractCollection<TaskMetadata> tasksMetadata) {
-    for (TaskMetadata taskMetadata : tasksMetadata) {
-      RunningTask runningTask = new RunningTask(taskMetadata);
-      scheduler.addTask(runningTask);
-      globalRecorder.watch(runningTask, "runningTask");
+  public void addTasks(AbstractCollection<Task> tasks) {
+    tasksStream.addTasks(tasks);
+    for (Task task : tasks) {
+      globalRecorder.watch(task, "Running Task");
     }
   }
 

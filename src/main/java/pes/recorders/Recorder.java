@@ -1,13 +1,12 @@
 package pes.recorders;
 
-import pes.state.RecordsHistory;
 import pes.state.Stateful;
 
 import java.util.Iterator;
 import java.util.Objects;
 
 public class Recorder implements Iterable<Record> {
-  private final String type;
+  private final String type; // TODO: replace with enum
 
   private final Stateful subject;
 

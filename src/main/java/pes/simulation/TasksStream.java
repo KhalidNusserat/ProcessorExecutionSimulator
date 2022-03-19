@@ -1,7 +1,7 @@
 package pes.simulation;
 
 import pes.schedulers.Scheduler;
-import pes.task.RunningTask;
+import pes.task.Task;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.HashSet;
 
 public class TasksStream {
 
-  private final HashSet<RunningTask> runningTasks = new HashSet<>();
+  private final HashSet<Task> tasks = new HashSet<>();
 
   private final Clock clock;
 
@@ -17,22 +17,23 @@ public class TasksStream {
     this.clock = clock;
   }
 
-  public void addTasks(AbstractCollection<RunningTask> runningTasks) {
-    this.runningTasks.addAll(runningTasks);
+  public void addTasks(AbstractCollection<Task> tasks) {
+    this.tasks.addAll(tasks);
   }
 
   public boolean isEmpty() {
-    return runningTasks.isEmpty();
+    return tasks.isEmpty();
   }
 
   public void issue(Scheduler scheduler) {
-    ArrayList<RunningTask> toRemove = new ArrayList<>();
-    for (RunningTask runningTask : runningTasks) {
-      if (runningTask.getMetadata().getCreationTime() == clock.getClockCyclesCount()) {
-        scheduler.addTask(runningTask);
-        toRemove.add(runningTask);
+    ArrayList<Task> toRemove = new ArrayList<>();
+    for (Task task : tasks) {
+      if (task.getCreationTime() == clock.getClockCyclesCount()) {
+        task.setCreated(true);
+        scheduler.addTask(task);
+        toRemove.add(task);
       }
     }
-    toRemove.forEach(runningTasks::remove);
+    toRemove.forEach(tasks::remove);
   }
 }

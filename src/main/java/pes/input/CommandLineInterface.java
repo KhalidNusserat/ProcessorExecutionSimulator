@@ -22,18 +22,18 @@ public class CommandLineInterface {
 
   public CommandLineInterface() {
     Option help = new Option("h", "help", false, "Display help");
-    Option input = new Option("i", "input", true, "Set the input path");
+    Option input = new Option("i", "input", true, "Set input path");
     input.setArgName("path");
     input.setRequired(true);
-    Option scheduler = new Option("s", "scheduler", true, "Select the scheduler");
+    Option scheduler = new Option("s", "scheduler", true, "Select scheduler");
     scheduler.setArgName("scheduler");
-    Option output = new Option("o", "output", true, "Set the output path");
+    Option output = new Option("o", "output", true, "Set output path");
     output.setArgName("path");
-    Option formatter = new Option("f", "formatter", true, "Set the output format");
+    Option formatter = new Option("f", "formatter", true, "Set output format");
     formatter.setArgName("format");
-    Option extension = new Option("e", "extension", true, "Set the output extension");
+    Option extension = new Option("e", "extension", true, "Set output extension");
     extension.setArgName("extension");
-    Option numberOfProcessors = new Option("p", "processors", true, "Set the number of processors");
+    Option numberOfProcessors = new Option("p", "processors", true, "Set number of processors");
     numberOfProcessors.setArgName("numberOfProcessors");
     numberOfProcessors.setRequired(true);
     options.addOption(help);
@@ -50,7 +50,8 @@ public class CommandLineInterface {
     CommandLine commandLine = parser.parse(options, args);
     if (commandLine.hasOption("help")) {
       HelpFormatter helpFormatter = new HelpFormatter();
-      helpFormatter.printHelp("pes [OPTIONS]", options);
+      helpFormatter.printHelp(
+          "pes <-i, --input <path>> <-p, --processors <numberOfProcessors>> [OPTIONS]", options);
     }
     if (commandLine.hasOption("input")) {
       inputPath = commandLine.getOptionValue("input");

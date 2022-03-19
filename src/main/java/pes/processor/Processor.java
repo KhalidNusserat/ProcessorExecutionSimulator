@@ -2,7 +2,7 @@ package pes.processor;
 
 import pes.state.State;
 import pes.state.Stateful;
-import pes.task.RunningTask;
+import pes.task.Task;
 
 import java.util.Objects;
 
@@ -10,24 +10,24 @@ public class Processor implements Stateful {
 
   private final int ID;
 
-  private RunningTask runningTask;
+  private Task task;
 
   public Processor(int ID) {
     this.ID = ID;
-    runningTask = null;
+    task = null;
   }
 
-  public RunningTask getRunningTask() {
-    return runningTask;
+  public Task getRunningTask() {
+    return task;
   }
 
-  public void setRunningTask(RunningTask runningTask) {
-    if (this.runningTask != null) {
-      this.runningTask.setProcessor(null);
+  public void setRunningTask(Task task) {
+    if (this.task != null) {
+      this.task.setProcessor(null);
     }
-    this.runningTask = runningTask;
-    if (this.runningTask != null) {
-      this.runningTask.setProcessor(this);
+    this.task = task;
+    if (this.task != null) {
+      this.task.setProcessor(this);
     }
   }
 
@@ -36,22 +36,22 @@ public class Processor implements Stateful {
   }
 
   public void executeOneCycle() {
-    if (runningTask == null) {
+    if (task == null) {
       return;
     }
-    runningTask.executeOneCycle();
-    if (runningTask.isDone()) {
+    task.executeOneCycle();
+    if (task.isDone()) {
       setRunningTask(null);
     }
   }
 
   public boolean isIdle() {
-    return runningTask == null;
+    return task == null;
   }
 
   @Override
   public State getState() {
-    return new State(new String[] {"Running Task"}, new Object[] {runningTask});
+    return new ProcessorState(this);
   }
 
   @Override

@@ -1,13 +1,69 @@
 package pes.input;
 
-import pes.task.TaskMetadata;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import pes.task.Task;
 import pes.task.TaskPriority;
 
-import javax.management.openmbean.KeyAlreadyExistsException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Scanner;
+
+class TaskInfo {
+  private int ID;
+
+  private TaskPriority priority;
+
+  private int creationTime;
+
+  private int requiredTime;
+
+  public int getID() {
+    return ID;
+  }
+
+  public void setID(int ID) {
+    this.ID = ID;
+  }
+
+  public TaskPriority getPriority() {
+    return priority;
+  }
+
+  public void setPriority(TaskPriority priority) {
+    this.priority = priority;
+  }
+
+  public int getCreationTime() {
+    return creationTime;
+  }
+
+  public void setCreationTime(int creationTime) {
+    this.creationTime = creationTime;
+  }
+
+  public int getRequiredTime() {
+    return requiredTime;
+  }
+
+  public void setRequiredTime(int requiredTime) {
+    this.requiredTime = requiredTime;
+  }
+
+  @Override
+  public String toString() {
+    return "TaskInfo{"
+        + "ID="
+        + ID
+        + ", priority="
+        + priority
+        + ", creationTime="
+        + creationTime
+        + ", requiredTime="
+        + requiredTime
+        + '}';
+  }
+}
 
 public class TasksReader {
 
@@ -15,29 +71,17 @@ public class TasksReader {
 
   private final HashSet<Integer> addedID = new HashSet<>();
 
-  public ArrayList<TaskMetadata> readTasksFromFile(String path) throws Exception {
-    ArrayList<TaskMetadata> tasks = new ArrayList<>();
-    Scanner scanner = new Scanner(new File(path));
-    while (scanner.hasNext()) {
-      String[] data = new String[4];
-      for (int i = 0; i < 4; i++) {
-        if (scanner.next().equalsIgnoreCase(prefix[i])) {
-          data[i] = scanner.next();
-        } else {
-          throw new Exception("Expected " + prefix[i]);
-        }
-      }
-      int ID = Integer.parseInt(data[0]);
-      if (addedID.contains(ID)) {
-        throw new KeyAlreadyExistsException();
-      }
-      addedID.add(ID);
+  public ArrayList<Task> readTasksFromFile(String path) throws Exception {
+    ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+    TaskInfo[] tasksInfo = mapper.readValue(new File(path), TaskInfo[].class);
+    ArrayList<Task> tasks = new ArrayList<>();
+    for (TaskInfo taskInfo : tasksInfo) {
       tasks.add(
-          new TaskMetadata(
-              ID,
-              data[1].equalsIgnoreCase("high") ? TaskPriority.HIGH : TaskPriority.LOW,
-              Integer.parseInt(data[2]),
-              Integer.parseInt(data[3])));
+          new Task(
+              taskInfo.getID(),
+              taskInfo.getPriority(),
+              taskInfo.getRequiredTime(),
+              taskInfo.getCreationTime()));
     }
     return tasks;
   }

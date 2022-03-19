@@ -5,28 +5,31 @@ import java.util.Iterator;
 import java.util.List;
 
 public class OutputFile implements Iterable<ArrayList<String>> {
-  private final String type;
-
   private final ArrayList<ArrayList<String>> data = new ArrayList<>();
+  private final String fileType;
+  private String fileName;
+  private String outputPath;
 
-  private String path;
-
-  public OutputFile(String type, String... columnNames) {
-    this.type = type;
+  public OutputFile(String fileType, String... columnNames) {
+    this.fileType = fileType;
     data.add(new ArrayList<>(List.of(columnNames)));
     data.add(new ArrayList<>());
   }
 
-  public String getType() {
-    return type;
+  public String getFileName() {
+    return fileName;
   }
 
-  public String getPath() {
-    return path;
+  public void setFileName(String fileName) {
+    this.fileName = fileName;
   }
 
-  public void setPath(String path) {
-    this.path = path;
+  public String getOutputPath() {
+    return outputPath;
+  }
+
+  public void setOutputPath(String outputPath) {
+    this.outputPath = outputPath + "/" + fileType + "/" + fileName;
   }
 
   public void append(String value) {
@@ -48,5 +51,9 @@ public class OutputFile implements Iterable<ArrayList<String>> {
   @Override
   public Iterator<ArrayList<String>> iterator() {
     return data.iterator();
+  }
+
+  public String getFileType() {
+    return fileType;
   }
 }

@@ -28,16 +28,16 @@ public class Record {
         + "\n}";
   }
 
-  public Object getValueOf(String field) {
-    return state.getValueOf(field);
-  }
-
   public int getStart() {
     return start;
   }
 
   public int getEnd() {
     return end;
+  }
+
+  public int getDuration() {
+    return start - end + 1;
   }
 
   public void incrementEnd() {
