@@ -49,10 +49,6 @@ public class OutputFile implements Iterable<ArrayList<String>> {
     return data.iterator();
   }
 
-  public String getSubfolderName() {
-    return subfolderName;
-  }
-
   public String getFileName() {
     return fileName;
   }

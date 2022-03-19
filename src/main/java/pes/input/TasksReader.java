@@ -2,8 +2,8 @@ package pes.input;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import pes.task.Task;
-import pes.task.TaskPriority;
+import pes.simulation.task.Task;
+import pes.simulation.task.TaskPriority;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,9 +70,9 @@ public class TasksReader {
 
   private static final String[] prefix = {"id:", "priority:", "creationTime:", "requiredTime:"};
 
-  private final HashSet<Integer> addedID = new HashSet<>();
+  private static final HashSet<Integer> addedID = new HashSet<>();
 
-  public ArrayList<Task> readTasksFromFile(String path) throws IOException {
+  public static ArrayList<Task> readTasksFromFile(String path) throws IOException {
     ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
     TaskInfo[] tasksInfo = mapper.readValue(new File(path), TaskInfo[].class);
     ArrayList<Task> tasks = new ArrayList<>();

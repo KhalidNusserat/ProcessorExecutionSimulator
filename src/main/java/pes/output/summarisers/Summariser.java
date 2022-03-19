@@ -1,17 +1,17 @@
 package pes.output.summarisers;
 
 import pes.output.OutputFile;
-import pes.processor.Processor;
-import pes.recorders.Record;
-import pes.recorders.Recorder;
+import pes.simulation.processor.Processor;
+import pes.simulation.recorders.Record;
+import pes.simulation.recorders.Recorder;
+import pes.simulation.task.Task;
+import pes.simulation.task.TaskPriority;
 import pes.state.StatefulType;
-import pes.task.Task;
-import pes.task.TaskPriority;
 
-import java.util.AbstractCollection;
+import java.util.ArrayList;
 
 public class Summariser {
-  public OutputFile summarise(AbstractCollection<Recorder> recorders) {
+  public OutputFile summarise(ArrayList<Recorder> recorders) {
     OutputFile outputFile =
         new OutputFile(
             "Summary",
@@ -35,8 +35,7 @@ public class Summariser {
         Task task = (Task) recorder.getSubject();
         if (task.getPriority().equals(TaskPriority.LOW)) {
           numberOfLowPriorityTasks++;
-        }
-        else {
+        } else {
           numberOfHighPriorityTasks++;
         }
       }
@@ -47,15 +46,13 @@ public class Summariser {
           if (processState.isIdle()) {
             totalIdleTime += record.getDuration();
           }
-        }
-        else {
+        } else {
           Task taskState = (Task) record.getState();
           if (taskState.getPriority().equals(TaskPriority.LOW)) {
             if (taskState.isCreated() && !taskState.isRunning() && !taskState.isDone()) {
               totalWaitingTimeLow += record.getDuration();
             }
-          }
-          else if (taskState.isCreated() && !taskState.isRunning() && !taskState.isDone()) {
+          } else if (taskState.isCreated() && !taskState.isRunning() && !taskState.isDone()) {
             totalWaitingTimeHigh += record.getDuration();
           }
         }

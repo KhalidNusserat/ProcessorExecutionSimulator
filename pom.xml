@@ -22,7 +22,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        pes.Main
+                                        pes.ProcessorExecutionSimulator
                                     </mainClass>
                                 </manifest>
                             </archive>

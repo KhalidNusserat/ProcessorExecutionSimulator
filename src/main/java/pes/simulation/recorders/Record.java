@@ -1,4 +1,4 @@
-package pes.recorders;
+package pes.simulation.recorders;
 
 import pes.state.Stateful;
 

@@ -1,13 +1,18 @@
 package pes.simulation;
 
-import pes.processor.Processor;
-import pes.recorders.GlobalRecorder;
-import pes.recorders.Recorder;
-import pes.schedulers.Scheduler;
-import pes.state.Stateful;
+import pes.input.SimulationConfiguration;
+import pes.output.OutputFile;
+import pes.output.formatters.Formatter;
+import pes.output.summarisers.Summariser;
+import pes.output.writers.RecordWriter;
+import pes.simulation.processor.Processor;
+import pes.simulation.recorders.GlobalRecorder;
+import pes.simulation.recorders.Recorder;
+import pes.simulation.schedulers.Scheduler;
+import pes.simulation.task.Task;
 import pes.state.StatefulType;
-import pes.task.Task;
 
+import java.io.IOException;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 
@@ -16,21 +21,23 @@ public class Simulation {
   private final Clock clock;
 
   private final TasksStream tasksStream;
+
   private final GlobalRecorder globalRecorder;
-  private Scheduler scheduler;
+
+  private final SimulationConfiguration configuration;
+
   private ArrayList<Processor> processors;
 
-  public Simulation() {
+  public Simulation(SimulationConfiguration configuration) {
     clock = new Clock();
     tasksStream = new TasksStream(clock);
     globalRecorder = new GlobalRecorder();
+    this.configuration = configuration;
+    createProcessors(configuration.getNumberOfProcessors());
+    addTasks(configuration.getTasks());
   }
 
-  public void setScheduler(Scheduler scheduler) {
-    this.scheduler = scheduler;
-  }
-
-  public void createProcessors(int numberOfProcessors) {
+  private void createProcessors(int numberOfProcessors) {
     processors = new ArrayList<>();
     for (int i = 0; i < numberOfProcessors; i++) {
       Processor processor = new Processor(i);
@@ -39,7 +46,7 @@ public class Simulation {
     }
   }
 
-  public void addTasks(AbstractCollection<Task> tasks) {
+  private void addTasks(AbstractCollection<Task> tasks) {
     tasksStream.addTasks(tasks);
     for (Task task : tasks) {
       globalRecorder.watch(task, StatefulType.TASK);
@@ -50,23 +57,13 @@ public class Simulation {
     return processors.stream().allMatch(Processor::isIdle);
   }
 
-  public boolean isFinished() {
+  private boolean isFinished() {
+    Scheduler scheduler = configuration.getScheduler();
     return areAllProcessorsIdle() && tasksStream.isEmpty() && scheduler.isEmpty();
   }
 
-  public ArrayList<Stateful> getProcessors() {
-    return new ArrayList<>(processors);
-  }
-
-  public ArrayList<Stateful> getRunningTasks() {
-    return scheduler.getRunningTasks();
-  }
-
-  public int getClockCyclesCount() {
-    return clock.getClockCyclesCount();
-  }
-
-  public void executeOneCycle() {
+  private void executeOneCycle() {
+    Scheduler scheduler = configuration.getScheduler();
     tasksStream.issue(scheduler);
     scheduler.schedule(processors);
     globalRecorder.recordAll(clock.getClockCyclesCount());
@@ -76,13 +73,22 @@ public class Simulation {
     clock.tick();
   }
 
-  public ArrayList<Recorder> getRecorders() {
-    return globalRecorder.getRecorders();
-  }
-
   public void run() {
     while (!isFinished()) {
       executeOneCycle();
     }
+  }
+
+  public void writeOutput() throws IOException {
+    Formatter formatter = configuration.getFormatter();
+    String outputDirectory = configuration.getOutputDirectory();
+    RecordWriter writer = configuration.getWriter();
+    ArrayList<Recorder> recorders = globalRecorder.getRecorders();
+    ArrayList<OutputFile> outputFiles = formatter.formatAllRecords(recorders);
+    outputFiles.forEach(outputFile -> outputFile.setOutputDirectory(outputDirectory));
+    writer.writeAll(outputFiles);
+    OutputFile summariserOutputFile = new Summariser().summarise(recorders);
+    summariserOutputFile.setOutputDirectory(outputDirectory);
+    writer.write(summariserOutputFile);
   }
 }

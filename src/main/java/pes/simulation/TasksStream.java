@@ -1,7 +1,7 @@
 package pes.simulation;
 
-import pes.schedulers.Scheduler;
-import pes.task.Task;
+import pes.simulation.schedulers.Scheduler;
+import pes.simulation.task.Task;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;

@@ -2,9 +2,9 @@ package pes.output.formatters.concise;
 
 import pes.output.OutputFile;
 import pes.output.formatters.Formatter;
-import pes.processor.Processor;
-import pes.recorders.Record;
-import pes.recorders.Recorder;
+import pes.simulation.processor.Processor;
+import pes.simulation.recorders.Record;
+import pes.simulation.recorders.Recorder;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class ProcessorConciseFormatter implements Formatter {
   }
 
   @Override
-  public AbstractCollection<OutputFile> formatAllRecords(AbstractCollection<Recorder> recorders) {
+  public ArrayList<OutputFile> formatAllRecords(AbstractCollection<Recorder> recorders) {
     ArrayList<OutputFile> result = new ArrayList<>();
     for (Recorder recorder : recorders) {
       result.add(formatRecords(recorder));

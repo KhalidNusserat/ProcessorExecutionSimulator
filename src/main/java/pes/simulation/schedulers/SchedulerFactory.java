@@ -1,4 +1,4 @@
-package pes.schedulers;
+package pes.simulation.schedulers;
 
 public class SchedulerFactory {
   public Scheduler createScheduler(String type) {

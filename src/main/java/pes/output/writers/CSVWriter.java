@@ -5,7 +5,6 @@ import pes.output.OutputFile;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 
 public class CSVWriter implements RecordWriter {
@@ -29,7 +28,7 @@ public class CSVWriter implements RecordWriter {
   }
 
   @Override
-  public void writeAll(AbstractCollection<OutputFile> outputFiles) throws IOException {
+  public void writeAll(ArrayList<OutputFile> outputFiles) throws IOException {
     for (OutputFile outputFile : outputFiles) {
       write(outputFile);
     }

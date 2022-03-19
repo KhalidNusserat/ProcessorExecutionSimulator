@@ -1,9 +1,9 @@
-package pes.schedulers;
+package pes.simulation.schedulers;
 
-import pes.processor.Processor;
+import pes.simulation.processor.Processor;
+import pes.simulation.task.Task;
+import pes.simulation.task.TaskPriority;
 import pes.state.Stateful;
-import pes.task.Task;
-import pes.task.TaskPriority;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;

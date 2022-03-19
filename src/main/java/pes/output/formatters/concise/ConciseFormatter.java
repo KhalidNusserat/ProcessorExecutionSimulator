@@ -2,7 +2,7 @@ package pes.output.formatters.concise;
 
 import pes.output.OutputFile;
 import pes.output.formatters.Formatter;
-import pes.recorders.Recorder;
+import pes.simulation.recorders.Recorder;
 import pes.state.StatefulType;
 
 import java.util.AbstractCollection;
@@ -21,7 +21,7 @@ public class ConciseFormatter implements Formatter { // TODO: is it really a fac
   }
 
   @Override
-  public AbstractCollection<OutputFile> formatAllRecords(AbstractCollection<Recorder> recorders) {
+  public ArrayList<OutputFile> formatAllRecords(AbstractCollection<Recorder> recorders) {
     ArrayList<OutputFile> outputFiles = new ArrayList<>();
     for (Recorder recorder : recorders) {
       outputFiles.add(formatRecords(recorder));
