@@ -6,6 +6,7 @@ import pes.task.Task;
 import pes.task.TaskPriority;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -71,7 +72,7 @@ public class TasksReader {
 
   private final HashSet<Integer> addedID = new HashSet<>();
 
-  public ArrayList<Task> readTasksFromFile(String path) throws Exception {
+  public ArrayList<Task> readTasksFromFile(String path) throws IOException {
     ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
     TaskInfo[] tasksInfo = mapper.readValue(new File(path), TaskInfo[].class);
     ArrayList<Task> tasks = new ArrayList<>();

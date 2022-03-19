@@ -1,28 +1,33 @@
 package pes.recorders;
 
 import pes.state.Stateful;
+import pes.state.StatefulType;
 
 import java.util.Iterator;
 import java.util.Objects;
 
 public class Recorder implements Iterable<Record> {
-  private final String type; // TODO: replace with enum
+  private final StatefulType type;
 
   private final Stateful subject;
 
   private final RecordsHistory recordsHistory = new RecordsHistory();
 
-  public Recorder(String type, Stateful subject) {
+  public Recorder(StatefulType type, Stateful subject) {
     this.subject = subject;
     this.type = type;
   }
 
-  public String getType() {
+  public StatefulType getType() {
     return type;
   }
 
   public void record(int clockCycle) {
     recordsHistory.add(subject.getState(), clockCycle);
+  }
+
+  public Stateful getSubject() {
+    return subject;
   }
 
   @Override

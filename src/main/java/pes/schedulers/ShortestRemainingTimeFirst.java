@@ -11,8 +11,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class ShortestRemainingTimeFirst implements Scheduler {
-  private final PriorityQueue<Task> tasks =
-      new PriorityQueue<>(new TasksComparator());
+  private final PriorityQueue<Task> tasks = new PriorityQueue<>(new TasksComparator());
 
   @Override
   public void addTask(Task task) {
@@ -27,8 +26,8 @@ public class ShortestRemainingTimeFirst implements Scheduler {
       }
       if (processor.isIdle()) {
         processor.setRunningTask(tasks.poll());
-      } else if (processor.getRunningTask().getPriority() == TaskPriority.LOW
-          && tasks.peek().getPriority() == TaskPriority.HIGH) {
+      } else if (processor.getRunningTask().getPriority().equals(TaskPriority.LOW)
+          && tasks.peek().getPriority().equals(TaskPriority.HIGH)) {
         // TODO: this is ugly, fix it
         processor.getRunningTask().setProcessor(null);
         tasks.add(processor.getRunningTask());

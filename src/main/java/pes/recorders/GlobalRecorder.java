@@ -1,6 +1,7 @@
 package pes.recorders;
 
 import pes.state.Stateful;
+import pes.state.StatefulType;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,11 +9,11 @@ import java.util.HashSet;
 public class GlobalRecorder {
   private final HashSet<Recorder> recorders = new HashSet<>();
 
-  public void watch(Stateful statefulObject, String type) {
+  public void watch(Stateful statefulObject, StatefulType type) {
     recorders.add(new Recorder(type, statefulObject));
   }
 
-  public void watchAll(ArrayList<Stateful> statefulObjects, String type) {
+  public void watchAll(ArrayList<Stateful> statefulObjects, StatefulType type) {
     for (Stateful statefulObject : statefulObjects) {
       watch(statefulObject, type);
     }

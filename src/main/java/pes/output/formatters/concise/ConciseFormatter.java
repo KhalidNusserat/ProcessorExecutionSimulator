@@ -1,23 +1,23 @@
 package pes.output.formatters.concise;
 
 import pes.output.OutputFile;
-import pes.output.formatters.RecordFormatter;
+import pes.output.formatters.Formatter;
 import pes.recorders.Recorder;
+import pes.state.StatefulType;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class ConciseFormatter implements RecordFormatter { // TODO: is it really a factory?
+public class ConciseFormatter implements Formatter { // TODO: is it really a factory?
   @Override
   public OutputFile formatRecords(Recorder stateRecorder) {
-    OutputFile outputFile = null;
-    if (Objects.equals(stateRecorder.getType(), "Processor")) {
-      outputFile = new ProcessorConciseFormatter().formatRecords(stateRecorder);
-    } else if (Objects.equals(stateRecorder.getType(), "Running Task")) {
-      outputFile = new TaskConciseFormatter().formatRecords(stateRecorder);
+    if (stateRecorder.getType().equals(StatefulType.TASK)) {
+      return new TaskConciseFormatter().formatRecords(stateRecorder);
+    } else if (stateRecorder.getType().equals(StatefulType.PROCESSOR)) {
+      return new ProcessorConciseFormatter().formatRecords(stateRecorder);
+    } else {
+      throw new IllegalArgumentException();
     }
-    return outputFile;
   }
 
   @Override

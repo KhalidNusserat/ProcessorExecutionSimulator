@@ -1,16 +1,16 @@
 package pes.recorders;
 
-import pes.state.State;
+import pes.state.Stateful;
 
 public class Record {
 
-  private final State state;
+  private final Stateful state;
 
   private final int start;
 
   private int end;
 
-  public Record(State state, int start, int end) {
+  public Record(Stateful state, int start, int end) {
     this.state = state;
     this.start = start;
     this.end = end;
@@ -37,7 +37,7 @@ public class Record {
   }
 
   public int getDuration() {
-    return start - end + 1;
+    return end - start + 1;
   }
 
   public void incrementEnd() {

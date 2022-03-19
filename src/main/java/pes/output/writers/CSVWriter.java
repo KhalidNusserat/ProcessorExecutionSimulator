@@ -8,10 +8,16 @@ import java.io.IOException;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 
-public class CsvRecordWriter implements RecordWriter {
+public class CSVWriter implements RecordWriter {
   @Override
   public void write(OutputFile outputFile) throws IOException {
-    File file = new File(outputFile.getOutputPath() + ".csv");
+    File directories = new File(outputFile.getOutputPath());
+    if (!directories.exists()) {
+      if (!directories.mkdirs()) {
+        throw new IOException("Could not create the path: " + outputFile.getOutputPath());
+      }
+    }
+    File file = new File(outputFile.getOutputPath() + "/" + outputFile.getFileName() + ".csv");
     FileWriter fileWriter = new FileWriter(file);
     for (ArrayList<String> row : outputFile) {
       for (String col : row) {

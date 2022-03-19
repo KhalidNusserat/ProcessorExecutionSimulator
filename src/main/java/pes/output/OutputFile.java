@@ -6,30 +6,22 @@ import java.util.List;
 
 public class OutputFile implements Iterable<ArrayList<String>> {
   private final ArrayList<ArrayList<String>> data = new ArrayList<>();
-  private final String fileType;
+  private final String subfolderName;
+  private String outputDirectory;
   private String fileName;
-  private String outputPath;
 
-  public OutputFile(String fileType, String... columnNames) {
-    this.fileType = fileType;
+  public OutputFile(String subfolderName, String... columnNames) {
+    this.subfolderName = subfolderName;
     data.add(new ArrayList<>(List.of(columnNames)));
     data.add(new ArrayList<>());
   }
 
-  public String getFileName() {
-    return fileName;
-  }
-
-  public void setFileName(String fileName) {
-    this.fileName = fileName;
+  public void setOutputDirectory(String outputDirectory) {
+    this.outputDirectory = outputDirectory;
   }
 
   public String getOutputPath() {
-    return outputPath;
-  }
-
-  public void setOutputPath(String outputPath) {
-    this.outputPath = outputPath + "/" + fileType + "/" + fileName;
+    return String.format("%s/%s", outputDirectory, subfolderName);
   }
 
   public void append(String value) {
@@ -39,8 +31,12 @@ public class OutputFile implements Iterable<ArrayList<String>> {
     }
   }
 
-  public void append(int i) {
-    append(Integer.toString(i));
+  public void append(int n) {
+    append(Integer.toString(n));
+  }
+
+  public void append(double n) {
+    append(Double.toString(n));
   }
 
   @Override
@@ -53,7 +49,15 @@ public class OutputFile implements Iterable<ArrayList<String>> {
     return data.iterator();
   }
 
-  public String getFileType() {
-    return fileType;
+  public String getSubfolderName() {
+    return subfolderName;
+  }
+
+  public String getFileName() {
+    return fileName;
+  }
+
+  public void setFileName(String fileName) {
+    this.fileName = fileName;
   }
 }

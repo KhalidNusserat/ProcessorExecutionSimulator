@@ -1,58 +1,108 @@
 package pes.input;
 
 import org.apache.commons.cli.*;
-import pes.output.formatters.RecordFormatter;
-import pes.output.formatters.RecordFormatterFactory;
+import pes.output.formatters.Formatter;
+import pes.output.formatters.FormatterFactory;
 import pes.output.formatters.concise.ConciseFormatter;
-import pes.output.writers.CsvRecordWriter;
+import pes.output.writers.CSVWriter;
 import pes.output.writers.RecordWriter;
 import pes.output.writers.RecordWriterFactory;
 import pes.schedulers.Scheduler;
 import pes.schedulers.SchedulerFactory;
 import pes.schedulers.ShortestRemainingTimeFirst;
 
+import java.util.ArrayList;
+
 public class CommandLineInterface {
   private final Options options = new Options();
+
   private String inputPath;
+
   private Scheduler scheduler = new ShortestRemainingTimeFirst();
-  private String outputPath = ".";
-  private RecordFormatter formatter = new ConciseFormatter();
-  private RecordWriter writer = new CsvRecordWriter();
+
+  private String outputPath = "./output";
+
+  private Formatter formatter = new ConciseFormatter();
+
+  private RecordWriter writer = new CSVWriter();
+
   private int numberOfProcessors = 1;
 
+  private HelpFormatter helpFormatter = new HelpFormatter();
+
   public CommandLineInterface() {
-    Option help = new Option("h", "help", false, "Display help");
-    Option input = new Option("i", "input", true, "Set input path");
-    input.setArgName("path");
-    input.setRequired(true);
-    Option scheduler = new Option("s", "scheduler", true, "Select scheduler");
-    scheduler.setArgName("scheduler");
-    Option output = new Option("o", "output", true, "Set output path");
-    output.setArgName("path");
-    Option formatter = new Option("f", "formatter", true, "Set output format");
-    formatter.setArgName("format");
-    Option extension = new Option("e", "extension", true, "Set output extension");
-    extension.setArgName("extension");
-    Option numberOfProcessors = new Option("p", "processors", true, "Set number of processors");
-    numberOfProcessors.setArgName("numberOfProcessors");
-    numberOfProcessors.setRequired(true);
-    options.addOption(help);
-    options.addOption(input);
-    options.addOption(scheduler);
-    options.addOption(formatter);
-    options.addOption(output);
-    options.addOption(extension);
-    options.addOption(numberOfProcessors);
+    options.addOption(
+            Option.builder()
+                    .option("i")
+                    .longOpt("input")
+                    .desc("Set input file path")
+                    .hasArg(true)
+                    .numberOfArgs(1)
+                    .required()
+                    .argName("path")
+                    .build()
+    );
+    options.addOption(
+            Option.builder()
+                    .option("o")
+                    .longOpt("output")
+                    .desc("Set output directory path")
+                    .hasArg(true)
+                    .numberOfArgs(1)
+                    .argName("path")
+                    .build()
+    );
+    options.addOption(
+            Option.builder()
+                    .option("s")
+                    .longOpt("scheduler")
+                    .desc("Select scheduler")
+                    .hasArg(true)
+                    .numberOfArgs(1)
+                    .argName("scheduler")
+                    .build()
+    );
+    options.addOption(
+            Option.builder()
+                    .option("f")
+                    .longOpt("format")
+                    .desc("Set output format")
+                    .hasArg(true)
+                    .numberOfArgs(1)
+                    .argName("format")
+                    .build()
+    );
+    options.addOption(
+            Option.builder()
+                    .option("e")
+                    .longOpt("extension")
+                    .desc("Set output files extension")
+                    .hasArg(true)
+                    .numberOfArgs(1)
+                    .argName("extension")
+                    .build()
+    );
+    options.addOption(
+            Option.builder()
+                    .option("p")
+                    .longOpt("processors")
+                    .desc("Set number of processors")
+                    .hasArg(true)
+                    .numberOfArgs(1)
+                    .required()
+                    .argName("numberOfProcessors")
+                    .build()
+    );
+  }
+
+  public void printHelp() {
+    helpFormatter.printHelp(
+            "pes -i, --input <path> -p, --processors <numberOfProcessors> [OPTIONS]", options);
   }
 
   public void parse(String[] args) throws ParseException {
     CommandLineParser parser = new DefaultParser();
     CommandLine commandLine = parser.parse(options, args);
-    if (commandLine.hasOption("help")) {
-      HelpFormatter helpFormatter = new HelpFormatter();
-      helpFormatter.printHelp(
-          "pes <-i, --input <path>> <-p, --processors <numberOfProcessors>> [OPTIONS]", options);
-    }
     if (commandLine.hasOption("input")) {
       inputPath = commandLine.getOptionValue("input");
     }
@@ -68,7 +118,7 @@ public class CommandLineInterface {
       writer = factory.createRecordWriter(commandLine.getOptionValue("extension"));
     }
     if (commandLine.hasOption("format")) {
-      RecordFormatterFactory factory = new RecordFormatterFactory();
+      FormatterFactory factory = new FormatterFactory();
       formatter = factory.createRecordFormatter(commandLine.getOptionValue("format"));
     }
     if (commandLine.hasOption("processors")) {
@@ -84,11 +134,11 @@ public class CommandLineInterface {
     return scheduler;
   }
 
-  public String getOutputPath() {
+  public String getOutputDirectory() {
     return outputPath;
   }
 
-  public RecordFormatter getFormatter() {
+  public Formatter getFormatter() {
     return formatter;
   }
 

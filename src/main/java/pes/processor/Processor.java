@@ -1,6 +1,5 @@
 package pes.processor;
 
-import pes.state.State;
 import pes.state.Stateful;
 import pes.task.Task;
 
@@ -15,6 +14,11 @@ public class Processor implements Stateful {
   public Processor(int ID) {
     this.ID = ID;
     task = null;
+  }
+
+  public Processor(Processor processor) {
+    this.ID = processor.ID;
+    this.task = processor.task;
   }
 
   public Task getRunningTask() {
@@ -49,9 +53,17 @@ public class Processor implements Stateful {
     return task == null;
   }
 
+  public String getTaskStateAsString() {
+    if (isIdle()) {
+      return "Idle";
+    } else {
+      return "Running task " + task.getID();
+    }
+  }
+
   @Override
-  public State getState() {
-    return new ProcessorState(this);
+  public Stateful getState() {
+    return new Processor(this);
   }
 
   @Override
@@ -59,11 +71,6 @@ public class Processor implements Stateful {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Processor processor = (Processor) o;
-    return ID == processor.ID;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(ID);
+    return ID == processor.ID && Objects.equals(task, processor.task);
   }
 }

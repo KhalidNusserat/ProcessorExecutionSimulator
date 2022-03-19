@@ -5,7 +5,7 @@ import pes.recorders.Recorder;
 
 import java.util.AbstractCollection;
 
-public interface RecordFormatter {
+public interface Formatter {
   OutputFile formatRecords(Recorder stateRecorder);
 
   AbstractCollection<OutputFile> formatAllRecords(AbstractCollection<Recorder> recorders);
