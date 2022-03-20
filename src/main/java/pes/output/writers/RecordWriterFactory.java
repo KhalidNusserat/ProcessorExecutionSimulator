@@ -1,7 +1,7 @@
 package pes.output.writers;
 
 public class RecordWriterFactory {
-  public RecordWriter createRecordWriter(String type) {
+  public RecordWriter create(String type) {
     if (type.equalsIgnoreCase("csv")) {
       return new CSVWriter();
     } else {

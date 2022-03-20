@@ -3,12 +3,15 @@ package pes.simulation;
 import pes.input.SimulationConfiguration;
 import pes.output.OutputFile;
 import pes.output.formatters.Formatter;
+import pes.output.formatters.FormatterFactory;
 import pes.output.summarisers.Summariser;
 import pes.output.writers.RecordWriter;
+import pes.output.writers.RecordWriterFactory;
 import pes.simulation.processor.Processor;
 import pes.simulation.recorders.GlobalRecorder;
 import pes.simulation.recorders.Recorder;
 import pes.simulation.schedulers.Scheduler;
+import pes.simulation.schedulers.SchedulerFactory;
 import pes.simulation.task.Task;
 import pes.state.StatefulType;
 
@@ -40,9 +43,9 @@ public class Simulation {
     globalRecorder = new GlobalRecorder();
     createProcessors(configuration.getNumberOfProcessors());
     addTasks(configuration.getTasks());
-    scheduler = configuration.getScheduler();
-    formatter = configuration.getFormatter();
-    writer = configuration.getWriter();
+    scheduler = new SchedulerFactory().create(configuration.getSchedulerType());
+    formatter = new FormatterFactory().create(configuration.getFormatterType());
+    writer = new RecordWriterFactory().create(configuration.getWriterType());
     outputDirectory = configuration.getOutputDirectory();
   }
 

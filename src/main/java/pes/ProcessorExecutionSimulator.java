@@ -2,6 +2,7 @@ package pes;
 
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
+import pes.input.SimulationArguments;
 import pes.input.SimulationConfiguration;
 import pes.simulation.Simulation;
 
@@ -11,14 +12,10 @@ import java.util.Objects;
 public class ProcessorExecutionSimulator {
   public static void main(String[] args) {
     try {
-      SimulationConfiguration simulationConfiguration = new SimulationConfiguration();
-      if (args.length == 1 && Objects.equals(args[0], "--help")) {
-        simulationConfiguration.printHelp();
-        System.exit(0);
-      }
-      simulationConfiguration.parse(args);
+      SimulationArguments arguments = new SimulationArguments(args);
+      SimulationConfiguration configuration = new SimulationConfiguration(arguments);
 
-      Simulation simulation = new Simulation(simulationConfiguration);
+      Simulation simulation = new Simulation(configuration);
       simulation.run();
 
       simulation.writeOutput();
