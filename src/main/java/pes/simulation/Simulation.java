@@ -2,10 +2,10 @@ package pes.simulation;
 
 import pes.OutputFile;
 import pes.SimulationConfiguration;
-import pes.Summariser;
 import pes.TasksReader;
 import pes.formatters.Formatter;
 import pes.formatters.FormatterFactory;
+import pes.formatters.Summariser;
 import pes.simulation.recorders.Recorder;
 import pes.simulation.recorders.Recorders;
 import pes.simulation.recorders.StatefulType;
@@ -15,7 +15,6 @@ import pes.writers.OutputWriter;
 import pes.writers.RecordWriterFactory;
 
 import java.io.IOException;
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 
 public class Simulation {
@@ -36,7 +35,8 @@ public class Simulation {
 
   private ArrayList<Processor> processors;
 
-  public Simulation(SimulationConfiguration configuration) throws IOException {
+  public Simulation(SimulationConfiguration configuration)
+      throws IOException, IllegalArgumentException {
     clock = new Clock();
     tasksStream = new TasksStream();
     recorders = new Recorders();
@@ -57,7 +57,7 @@ public class Simulation {
     }
   }
 
-  private void addTasks(AbstractCollection<Task> tasks) {
+  private void addTasks(ArrayList<Task> tasks) {
     tasksStream.addTasks(tasks);
     for (Task task : tasks) {
       recorders.watch(task, StatefulType.TASK);

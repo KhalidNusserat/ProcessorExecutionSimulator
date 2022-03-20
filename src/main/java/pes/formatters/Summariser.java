@@ -1,5 +1,6 @@
-package pes;
+package pes.formatters;
 
+import pes.OutputFile;
 import pes.simulation.Processor;
 import pes.simulation.Task;
 import pes.simulation.TaskPriority;

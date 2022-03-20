@@ -10,12 +10,10 @@ public class ProcessorExecutionSimulator {
     try {
       SimulationArguments arguments = new SimulationArguments(args);
       SimulationConfiguration configuration = new SimulationConfiguration(arguments);
-
       Simulation simulation = new Simulation(configuration);
       simulation.run();
-
       simulation.writeOutput();
-    } catch (ParseException | IOException exception) {
+    } catch (IOException | ParseException exception) {
       System.out.println(exception.getMessage());
     }
   }

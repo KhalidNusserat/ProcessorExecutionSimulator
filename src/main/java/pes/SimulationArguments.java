@@ -63,8 +63,14 @@ public class SimulationArguments {
             .numberOfArgs(1)
             .argName("numberOfProcessors")
             .build());
-    CommandLineParser parser = new DefaultParser();
-    commandLine = parser.parse(options, args);
+    try{
+      CommandLineParser parser = new DefaultParser();
+      commandLine = parser.parse(options, args);
+    } catch (ParseException parseException) {
+      HelpFormatter helpFormatter = new HelpFormatter();
+      helpFormatter.printHelp("pes -i,--input <path> [OPTIONS]", options);
+      throw parseException;
+    }
   }
 
   public CommandLine getCommandLine() {

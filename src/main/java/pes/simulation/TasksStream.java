@@ -1,6 +1,5 @@
 package pes.simulation;
 
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -8,7 +7,7 @@ public class TasksStream {
 
   private final HashSet<Task> tasks = new HashSet<>();
 
-  public void addTasks(AbstractCollection<Task> tasks) {
+  public void addTasks(ArrayList<Task> tasks) {
     this.tasks.addAll(tasks);
   }
 

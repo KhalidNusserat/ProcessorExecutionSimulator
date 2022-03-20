@@ -19,7 +19,6 @@ public class SimulationConfiguration {
 
   public SimulationConfiguration(SimulationArguments arguments) throws ParseException {
     CommandLine commandLine = arguments.getCommandLine();
-    ;
     if (commandLine.hasOption("input")) {
       inputPath = commandLine.getOptionValue("input");
     }
