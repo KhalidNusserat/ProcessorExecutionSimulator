@@ -1,12 +1,11 @@
-package pes.output.summarisers;
+package pes;
 
-import pes.output.OutputFile;
-import pes.simulation.processor.Processor;
+import pes.simulation.Processor;
+import pes.simulation.Task;
+import pes.simulation.TaskPriority;
 import pes.simulation.recorders.Record;
 import pes.simulation.recorders.Recorder;
-import pes.simulation.task.Task;
-import pes.simulation.task.TaskPriority;
-import pes.state.StatefulType;
+import pes.simulation.recorders.StatefulType;
 
 import java.util.ArrayList;
 

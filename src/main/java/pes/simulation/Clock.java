@@ -12,7 +12,7 @@ public class Clock {
     clockCyclesCount++;
   }
 
-  public int getClockCyclesCount() {
+  public int getClock() {
     return clockCyclesCount;
   }
 }

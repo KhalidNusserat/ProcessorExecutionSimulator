@@ -1,4 +1,4 @@
-package pes.state;
+package pes.simulation.recorders;
 
 public enum StatefulType {
   PROCESSOR,

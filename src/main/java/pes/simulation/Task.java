@@ -1,7 +1,6 @@
-package pes.simulation.task;
+package pes.simulation;
 
-import pes.simulation.processor.Processor;
-import pes.state.Stateful;
+import pes.simulation.recorders.Stateful;
 
 import java.util.Objects;
 

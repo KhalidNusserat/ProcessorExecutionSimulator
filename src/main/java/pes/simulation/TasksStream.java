@@ -1,8 +1,5 @@
 package pes.simulation;
 
-import pes.simulation.schedulers.Scheduler;
-import pes.simulation.task.Task;
-
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,12 +7,6 @@ import java.util.HashSet;
 public class TasksStream {
 
   private final HashSet<Task> tasks = new HashSet<>();
-
-  private final Clock clock;
-
-  public TasksStream(Clock clock) {
-    this.clock = clock;
-  }
 
   public void addTasks(AbstractCollection<Task> tasks) {
     this.tasks.addAll(tasks);
@@ -25,15 +16,15 @@ public class TasksStream {
     return tasks.isEmpty();
   }
 
-  public void issue(Scheduler scheduler) {
-    ArrayList<Task> toRemove = new ArrayList<>();
+  public ArrayList<Task> getCreatedTasks(int clockCycle) {
+    ArrayList<Task> createdTasks = new ArrayList<>();
     for (Task task : tasks) {
-      if (task.getCreationTime() == clock.getClockCyclesCount()) {
+      if (task.getCreationTime() == clockCycle) {
         task.setCreated(true);
-        scheduler.addTask(task);
-        toRemove.add(task);
+        createdTasks.add(task);
       }
     }
-    toRemove.forEach(tasks::remove);
+    createdTasks.forEach(tasks::remove);
+    return createdTasks;
   }
 }

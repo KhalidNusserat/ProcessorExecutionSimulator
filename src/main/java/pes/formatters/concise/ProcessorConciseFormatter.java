@@ -1,8 +1,8 @@
-package pes.output.formatters.concise;
+package pes.formatters.concise;
 
-import pes.output.OutputFile;
-import pes.output.formatters.Formatter;
-import pes.simulation.processor.Processor;
+import pes.OutputFile;
+import pes.formatters.Formatter;
+import pes.simulation.Processor;
 import pes.simulation.recorders.Record;
 import pes.simulation.recorders.Recorder;
 

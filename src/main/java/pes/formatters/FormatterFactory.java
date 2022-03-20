@@ -1,6 +1,6 @@
-package pes.output.formatters;
+package pes.formatters;
 
-import pes.output.formatters.concise.ConciseFormatter;
+import pes.formatters.concise.ConciseFormatter;
 
 public class FormatterFactory {
   public Formatter create(String type) {

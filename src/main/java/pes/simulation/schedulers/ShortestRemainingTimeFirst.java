@@ -1,9 +1,9 @@
 package pes.simulation.schedulers;
 
-import pes.simulation.processor.Processor;
-import pes.simulation.task.Task;
-import pes.simulation.task.TaskPriority;
-import pes.state.Stateful;
+import pes.simulation.Processor;
+import pes.simulation.Task;
+import pes.simulation.TaskPriority;
+import pes.simulation.recorders.Stateful;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;
@@ -16,6 +16,11 @@ public class ShortestRemainingTimeFirst implements Scheduler {
   @Override
   public void addTask(Task task) {
     tasks.add(task);
+  }
+
+  @Override
+  public void addTasks(ArrayList<Task> tasks) {
+    tasks.addAll(tasks);
   }
 
   @Override

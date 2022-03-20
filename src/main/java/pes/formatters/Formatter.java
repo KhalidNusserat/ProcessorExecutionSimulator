@@ -1,6 +1,6 @@
-package pes.output.formatters;
+package pes.formatters;
 
-import pes.output.OutputFile;
+import pes.OutputFile;
 import pes.simulation.recorders.Recorder;
 
 import java.util.AbstractCollection;

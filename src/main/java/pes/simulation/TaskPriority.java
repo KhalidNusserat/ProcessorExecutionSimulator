@@ -1,4 +1,4 @@
-package pes.simulation.task;
+package pes.simulation;
 
 public enum TaskPriority {
   HIGH,

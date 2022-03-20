@@ -1,12 +1,9 @@
 package pes.simulation.recorders;
 
-import pes.state.Stateful;
-import pes.state.StatefulType;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class GlobalRecorder {
+public class Recorders {
   private final HashSet<Recorder> recorders = new HashSet<>();
 
   public void watch(Stateful statefulObject, StatefulType type) {

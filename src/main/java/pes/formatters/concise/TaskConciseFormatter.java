@@ -1,10 +1,10 @@
-package pes.output.formatters.concise;
+package pes.formatters.concise;
 
-import pes.output.OutputFile;
-import pes.output.formatters.Formatter;
+import pes.OutputFile;
+import pes.formatters.Formatter;
+import pes.simulation.Task;
 import pes.simulation.recorders.Record;
 import pes.simulation.recorders.Recorder;
-import pes.simulation.task.Task;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;

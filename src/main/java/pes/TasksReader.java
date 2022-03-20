@@ -1,9 +1,9 @@
-package pes.input;
+package pes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import pes.simulation.task.Task;
-import pes.simulation.task.TaskPriority;
+import pes.simulation.Task;
+import pes.simulation.TaskPriority;
 
 import java.io.File;
 import java.io.IOException;

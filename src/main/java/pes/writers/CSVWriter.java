@@ -1,13 +1,13 @@
-package pes.output.writers;
+package pes.writers;
 
-import pes.output.OutputFile;
+import pes.OutputFile;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CSVWriter implements RecordWriter {
+public class CSVWriter implements OutputWriter {
   @Override
   public void write(OutputFile outputFile) throws IOException {
     File directories = new File(outputFile.getOutputPath());

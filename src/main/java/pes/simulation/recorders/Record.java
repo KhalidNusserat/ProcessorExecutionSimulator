@@ -1,7 +1,5 @@
 package pes.simulation.recorders;
 
-import pes.state.Stateful;
-
 public class Record {
 
   private final Stateful state;

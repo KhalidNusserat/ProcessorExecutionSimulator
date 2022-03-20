@@ -1,9 +1,7 @@
-package pes.input;
+package pes;
 
-import org.apache.commons.cli.*;
-import pes.simulation.task.Task;
-
-import java.util.ArrayList;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.ParseException;
 
 public class SimulationConfiguration {
 
@@ -19,10 +17,9 @@ public class SimulationConfiguration {
 
   private int numberOfProcessors = 1;
 
-  private ArrayList<Task> tasks = new ArrayList<>();
-
   public SimulationConfiguration(SimulationArguments arguments) throws ParseException {
-    CommandLine commandLine = arguments.getCommandLine();;
+    CommandLine commandLine = arguments.getCommandLine();
+    ;
     if (commandLine.hasOption("input")) {
       inputPath = commandLine.getOptionValue("input");
     }
@@ -65,9 +62,5 @@ public class SimulationConfiguration {
 
   public int getNumberOfProcessors() {
     return numberOfProcessors;
-  }
-
-  public ArrayList<Task> getTasks() {
-    return tasks;
   }
 }

@@ -1,8 +1,5 @@
 package pes.simulation.recorders;
 
-import pes.state.Stateful;
-import pes.state.StatefulType;
-
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -11,7 +8,7 @@ public class Recorder implements Iterable<Record> {
 
   private final Stateful subject;
 
-  private final RecordsHistory recordsHistory = new RecordsHistory();
+  private final Records records = new Records();
 
   public Recorder(StatefulType type, Stateful subject) {
     this.subject = subject;
@@ -23,7 +20,7 @@ public class Recorder implements Iterable<Record> {
   }
 
   public void record(int clockCycle) {
-    recordsHistory.add(subject.getState(), clockCycle);
+    records.add(subject.getState(), clockCycle);
   }
 
   public Stateful getSubject() {
@@ -32,12 +29,12 @@ public class Recorder implements Iterable<Record> {
 
   @Override
   public String toString() {
-    return recordsHistory.toString();
+    return records.toString();
   }
 
   @Override
   public Iterator<Record> iterator() {
-    return recordsHistory.iterator();
+    return records.iterator();
   }
 
   @Override
